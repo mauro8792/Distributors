@@ -10,23 +10,33 @@
             <th scope="col">Name  </th>
             <th scope="col">Telephone</th>
             <th scope="col">Address</th>
+            <th scope="col">Distributors</th>
             <th scope="col">Edit</th>
             <th scope="col">Eliminar</th>
         </thead>
         <tbody>
             @foreach($comercio as $com)
+                
                 <tr>
                     <th scope="row">{{$com->name}}</th>
                     <td > {{$com->telephone}}</td>
                     <td>{{$com->address}}</td>
+                    <td>
+                        @foreach($dist as $dis)
+                        @if ($com->distributor->id==$dis->id)
+                            {{$dis->name}}
+                        @endif      
+                        @endforeach                
+                    </td>
                     <!-- <td><a href="/distributors/{{$com->slug}}" class="btn btn-primary">Ver más..</a> </td> -->
-                    <td><a href="/distributors/{{$com->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
-                    <td> <form method="POST" action="/distributors/{{$com->slug}}">
+                    <td><a href="/commerces/{{$com->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
+                    <td> <form method="POST" action="/commerces/{{$com->slug}}">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                      <button type="submit" class="btn btn-danger">Eliminar</button> </form>
                 </td>
                 </tr>
+                
             @endforeach
         </tbody>
     </table>

@@ -1,35 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Create Commerce')
+@section('title', 'Edit commerce')
 
 @section('content')
-    @if($errors->any())
-        <div class="alert alert danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{$error}}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-    <p>New Commerce: </p>
-    <form class="form-group" method="POST" action="/commerces">
+    <p>Commerce: </p>
+<form class="form-group" method="POST" action="/commerces/{{$commerce->slug}}">
+        @method('put')
         @csrf
         <div class="form-group">
             <label for="">Name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text" name="name" class="form-control" value="{{$commerce->name}}">
         </div>
         
         <div class="form-group">
             <label for="">Telephone</label>
-            <input type="text" name="telephone" class="form-control">
+            <input type="text" name="telephone" class="form-control" value="{{$commerce->telephone}}">
         </div>
 
         <div class="form-group">
             <label for="">Address</label>
-            <input type="text" name="address" class="form-control">
+            <input type="text" name="address" class="form-control" value="{{$commerce->address}}">
         </div>
-        
         <div class="form-goup">
             <label for="">Select to Distributor</label>
             
@@ -38,10 +29,9 @@
                         <option value="{{$dis->id}}">{{$dis->name}}</option>
                     @endforeach
                 </select>
-                
-            
-         
         </div>
+        
+        
 
         
         <button type="submit" class="btn btn-primary">Guardar</button>

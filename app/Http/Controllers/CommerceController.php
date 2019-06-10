@@ -15,7 +15,8 @@ class CommerceController extends Controller
     public function index(Request $request)
     {
         $comercio=Commerce::all();
-        return view('commerces.index', compact('comercio'));
+        $dist = Distributor::all();
+        return view('commerces.index', compact('comercio','dist'));
     }
 
     /**
@@ -43,8 +44,6 @@ class CommerceController extends Controller
         $comercio->address = $request->input('address');
         $comercio->slug = $request->input('name');
         $comercio->distributor()->associate($request->input('distributor'))->save();
-        
-       // $comercio->save();
     }
 
     /**
@@ -64,9 +63,10 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Commerce $commerce)
     {
-        //
+        $dist = Distributor::all();
+        return view('commerces.edit', compact('commerce','dist'));
     }
 
     /**
@@ -76,9 +76,14 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Commerce $commerce)
     {
-        //
+        $commerce->name = $request->input('name');
+        $commerce->telephone = $request->input('telephone');
+        $commerce->address = $request->input('address');
+        $commerce->slug = $request->input('name');
+        $commerce->distributor()->associate($request->input('distributor'))->save();
+        return redirect()->route('commerces.index');
     }
 
     /**
@@ -87,8 +92,9 @@ class CommerceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Commerce $commerce)
     {
-        //
+        $commerce->delete();
+        return redirect()->route('commerces.index');
     }
 }

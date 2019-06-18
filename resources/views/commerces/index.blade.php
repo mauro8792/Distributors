@@ -28,7 +28,7 @@
                         @endif      
                         @endforeach                
                     </td>
-                    <!-- <td><a href="/distributors/{{$com->slug}}" class="btn btn-primary">Ver más..</a> </td> -->
+                    
                     <td><a href="/commerces/{{$com->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
                     <td> <form method="POST" action="/commerces/{{$com->slug}}">
                         {{ csrf_field() }}

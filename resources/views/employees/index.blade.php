@@ -1,9 +1,9 @@
 @extends('layouts.app')
-
-@section('title', 'Commerces')
+ 
+@section('title', 'Employe  es')
 
 @section('content')
-    <p>List of Commerces</p>
+    <p>List of Employees</p>
 
     <table class="table">
         <thead>
@@ -19,7 +19,7 @@
             <th scope="col">Eliminar</th>
         </thead>
         <tbody>
-            @foreach($empleados as $empleado)
+            @foreach($employees as $empleado)
                 
                 <tr>
                     <th scope="row">{{$empleado->name}}</th>
@@ -30,13 +30,12 @@
                     <td > {{$empleado->birthdate}}</td>
                     <td>{{$empleado->sexo}}</td>
                     <td>
-                        @foreach($comcerces as $Commerce)
-                           @if ($empleado->commercer->id==$Commerce->id)
+                        @foreach($commerces as $Commerce)
+                           @if ($empleado->commerce->id==$Commerce->id)
                             {{$Commerce->name}}
                         @endif      
                         @endforeach                
                     </td>
-                    <!-- <td><a href="/distributors/{{$com->slug}}" class="btn btn-primary">Ver más..</a> </td> -->
                     <td><a href="/employees/{{$empleado->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
                     <td> <form method="POST" action="/employees/{{$empleado->slug}}">
                         {{ csrf_field() }}
@@ -49,7 +48,7 @@
         </tbody>
     </table>
     <div>
-        <a href="/commerces/create" class="btn btn-primary">Nuevo</a>
+        <a href="/employees/create" class="btn btn-primary">Nuevo</a>
     </div>
    
 

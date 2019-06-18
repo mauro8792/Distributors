@@ -14,7 +14,8 @@ class Employee extends Model
         return 'slug';
     }
 
-    public function commercer(){
+    public function commerce(){
         return $this->belongsTo('Distributor\Commerce');
     }
+    
 }

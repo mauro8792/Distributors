@@ -14,9 +14,10 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $comcerces=Commerce::all();
-        $employee= Employee::all();
-        return view('employees.index', compact('employee','comcerces'));
+        $commerces=Commerce::all();
+        $employees= Employee::all();
+        
+        return view('employees.index', compact('employees','commerces'));
     }
 
     /**
@@ -46,7 +47,8 @@ class EmployeeController extends Controller
         $employee->email = $request->input('email');
         $employee->birthdate = $request->input('birthdate');
         $employee->sexo = $request->input('sexo');
-        $employee->commercer()->associate($request->input('commercer'))->save();
+        $employee->slug = $request->input('name');
+        $employee->commerce()->associate($request->input('commerce'))->save();
         return redirect()->route('employees.index');
     }
 
@@ -89,6 +91,7 @@ class EmployeeController extends Controller
         $employee->email = $request->input('email');
         $employee->birthdate = $request->input('birthdate');
         $employee->sexo = $request->input('sexo');
+        $employee->slug = $request->input('name');
         $employee->commercer()->associate($request->input('commercer'))->save();
         return redirect()->route('employees.index');
     }

@@ -30,6 +30,9 @@
             @endforeach
         </tbody>
     </table>
+    <div>
+        <a href="/distributors/create" class="btn btn-primary">Nuevo</a>
+    </div>
    
 
 @endsection

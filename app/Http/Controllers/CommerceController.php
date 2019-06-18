@@ -44,6 +44,7 @@ class CommerceController extends Controller
         $comercio->address = $request->input('address');
         $comercio->slug = $request->input('name');
         $comercio->distributor()->associate($request->input('distributor'))->save();
+        return redirect()->route('commerces.index');
     }
 
     /**

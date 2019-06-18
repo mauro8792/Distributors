@@ -16,4 +16,7 @@ class Commerce extends Model
     public function distributor(){
         return $this->belongsTo('Distributor\Distributor');
     }
+    public function employees(){
+         return $this->hasMany('Distributor\Employee');
+     }
 }

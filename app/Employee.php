@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     protected $filliable = ['name', 'lastname','telephone','dni'
-        ,'email', 'birthdate', 'sexo'];
+        ,'email', 'birthdate', 'sexo', 'slug'];
         
     public function getRouteKeyName()
     {

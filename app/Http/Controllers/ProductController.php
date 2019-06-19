@@ -39,12 +39,12 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $producto = new Product();
-        $producto->$request->input('name');
-        $producto->$request->input('amount');
-        $producto->$request->input('price');
-        $producto->$request->input('description');
-        $producto->$request->input('slug');
-        $producto->distibutor()->associate($request->input('distributor'))->save();
+        $producto->name= $request->input('name');
+        $producto->amount= $request->input('amount');
+        $producto->price = $request->input('price');
+        $producto->description = $request->input('description');
+        $producto->slug= $request->input('name');
+        $producto->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('products.index');
     }
 
@@ -65,10 +65,10 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $producto)
+    public function edit(Product $product)
     {
         $dist= Distributor::all();
-        return view ('products.edit', compact('producto','edit'));
+        return view ('products.edit', compact('product','dist'));
     }
 
     /**
@@ -78,14 +78,14 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Product $producto)
+    public function update(Request $request, Product $product)
     {
-        $producto->$request->input('name');
-        $producto->$request->input('amount');
-        $producto->$request->input('price');
-        $producto->$request->input('description');
-        $producto->$request->input('slug');
-        $producto->distibutor()->associate($request->input('distributor'))->save();
+        $product->name= $request->input('name');
+        $product->amount=$request->input('amount');
+        $product->price=$request->input('price');
+        $product->description=$request->input('description');
+        $product->slug=$request->input('name');
+        $product->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('products.index');
     }
 
@@ -95,9 +95,9 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $producto)
+    public function destroy(Product $product)
     {
-        $producto->delete();
+        $product->delete();
         return redirect()->route('products.index');
     }
 }

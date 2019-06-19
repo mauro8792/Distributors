@@ -16,5 +16,8 @@ class Distributor extends Model
      public function commerces(){
          return $this->hasMany('Distributor\Commerce');
      }
+     public function products(){
+         return $this->hasMany('Distributor\Product');
+     }
     
 }

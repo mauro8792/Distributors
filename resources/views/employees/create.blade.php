@@ -52,9 +52,6 @@
                         <option value="{{$com->id}}">{{$com->name}}</option>
                     @endforeach
                 </select>
-                
-            
-         
         </div>       
         
 

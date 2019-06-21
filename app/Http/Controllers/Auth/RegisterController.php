@@ -3,6 +3,7 @@
 namespace Distributor\Http\Controllers\Auth;
 
 use Distributor\User;
+use Distributor\Commerce;
 use Distributor\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -62,9 +63,11 @@ class RegisterController extends Controller
      * @return \Distributor\User
      */
     protected function create(array $data)
-    {
+    {   
+        $commerces=Commerce::all(); 
         return User::create([
             'name' => $data['name'],
+            'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);

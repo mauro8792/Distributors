@@ -19,4 +19,7 @@ class Commerce extends Model
     public function employees(){
          return $this->hasMany('Distributor\Employee');
      }
+    public function users(){
+         return $this->hasMany('Distributor\User');
+     }
 }

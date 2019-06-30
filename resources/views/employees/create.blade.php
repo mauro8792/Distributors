@@ -17,24 +17,27 @@
         @csrf
         <div class="form-group">
             <label for="">Name</label>
-            <input type="text" name="name" class="form-control">
+            <input type="text"  class="form-control" value="{{$usuario->name}}" disabled >
+            <input type="hidden"  name="name1" value="{{$usuario->name}}">
         </div>
         <div class="form-group">
             <label for="">Last Name</label>
-            <input type="text" name="lastname" class="form-control">
+            <input type="text" name="lastname" class="form-control" value="{{$usuario->lastname}}" disabled >
+            <input type="hidden"  name="lastname1" value="{{$usuario->lastname}}">
         </div>
         
         <div class="form-group">
             <label for="">Telephone</label>
-            <input type="text" name="telephone" class="form-control">
+            <input type="text" name="telephone" class="form-control" >
         </div>
         <div class="form-group">
             <label for="">Dni</label>
-            <input type="text" name="dni" class="form-control">
+            <input type="text" name="dni" class="form-control" >
         </div>
         <div class="form-group">
             <label for="">Email</label>
-            <input type="email" name="email" class="form-control">
+            <input type="email" name="email" class="form-control" value="{{$usuario->email}}" disabled>
+            <input type="hidden"  name="email1" value="{{$usuario->email}}">
         </div>
         <div class="form-group">
             <label for="">Birth Date</label>
@@ -42,7 +45,7 @@
         </div>
         <div class="form-group">
             <label for="">Sex</label>
-            <input type="text" name="sexo" class="form-control">
+            <input type="text" name="sexo" class="form-control" >
         </div> 
         <div class="form-goup">
             <label for="">Select to Commerce</label>

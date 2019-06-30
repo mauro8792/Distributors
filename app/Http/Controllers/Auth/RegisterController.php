@@ -29,7 +29,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/employees/create';
 
     /**
      * Create a new controller instance.
@@ -64,12 +64,19 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
-        $commerces=Commerce::all(); 
+        
         return User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        
+    }
+    
+    public function showRegistrationForm() {
+        $commerce = Commerce::all();
+        return view('auth.register', compact ('commerce'));
     }
 }

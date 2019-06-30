@@ -15,4 +15,7 @@ class Product extends Model
     public function distributor(){
         return $this->belongsTo('Distributor\Distributor');
     }
+    public function employees(){
+        return $this->belongsToMany('Distributor\Employee');
+    }
 }

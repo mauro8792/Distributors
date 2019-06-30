@@ -12,6 +12,10 @@ class User extends Authenticatable
     public function roles(){
         return $this->belongsToMany('Distributor\Role');
     }
+   
+    public function commerce(){
+        return $this->belongsTo('Distributor\Commerce');
+    }
     /**
      * The attributes that are mass assignable.
      *

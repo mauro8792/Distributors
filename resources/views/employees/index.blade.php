@@ -1,6 +1,6 @@
 @extends('layouts.app')
  
-@section('title', 'Employe  es')
+@section('title', 'Employees')
 
 @section('content')
     <p>List of Employees</p>
@@ -32,8 +32,8 @@
                     <td>
                         @foreach($commerces as $Commerce)
                            @if ($empleado->commerce->id==$Commerce->id)
-                            {{$Commerce->name}}
-                        @endif      
+                                {{$Commerce->name}}
+                            @endif      
                         @endforeach                
                     </td>
                     <td><a href="/employees/{{$empleado->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
@@ -41,7 +41,7 @@
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                      <button type="submit" class="btn btn-danger">Eliminar</button> </form>
-                </td>
+                     </td>
                 </tr>
                 
             @endforeach

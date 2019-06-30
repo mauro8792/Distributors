@@ -51,6 +51,7 @@
                                 @endif
                             </div>
                         </div>
+                       
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
@@ -73,6 +74,7 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                             </div>
                         </div>
+                        
                         
 
                         <div class="form-group row mb-0">

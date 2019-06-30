@@ -2,6 +2,7 @@
 
 namespace Distributor\Http\Controllers;
 use Distributor\Employee;
+use Distributor\User;
 use Distributor\Commerce;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,6 @@ class EmployeeController extends Controller
     {
         $commerces=Commerce::all();
         $employees= Employee::all();
-        
         return view('employees.index', compact('employees','commerces'));
     }
 
@@ -26,10 +26,13 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
+    {   
+        $user= User::all();
+        $usuario = $user->last();
         $commerce = Commerce::all();
-        return view('employees.create', compact('commerce'));
+        return view('employees.create', compact('commerce','usuario'));
     }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -39,15 +42,16 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        
         $employee = new Employee();
-        $employee->name = $request->input('name');
-        $employee->lastname = $request->input('lastname');
+        $employee->name = $request->input('name1');
+        $employee->lastname = $request->input('lastname1');
         $employee->telephone = $request->input('telephone');
         $employee->dni = $request->input('dni');
-        $employee->email = $request->input('email');
+        $employee->email = $request->input('email1');
         $employee->birthdate = $request->input('birthdate');
         $employee->sexo = $request->input('sexo');
-        $employee->slug = $request->input('name');
+        $employee->slug = $request->input('name1');
         $employee->commerce()->associate($request->input('commerce'))->save();
         return redirect()->route('employees.index');
     }
@@ -92,7 +96,7 @@ class EmployeeController extends Controller
         $employee->birthdate = $request->input('birthdate');
         $employee->sexo = $request->input('sexo');
         $employee->slug = $request->input('name');
-        $employee->commercer()->associate($request->input('commercer'))->save();
+        $employee->commerce()->associate($request->input('commerce'))->save();
         return redirect()->route('employees.index');
     }
 

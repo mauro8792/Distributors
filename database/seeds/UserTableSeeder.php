@@ -19,7 +19,7 @@ class UserTableSeeder extends Seeder
         $user->name = "User";
         $user->lastname = "lastUser";
         $user->email = "user@email.com";
-        $user->password = brcypt("password");
+        $user->password = bcrypt('query');
         $user->save();
         $user->roles()->attach($role_user);
 
@@ -27,9 +27,9 @@ class UserTableSeeder extends Seeder
         $user->name = "Admin";
         $user->lastname = "lastAdmin";
         $user->email = "admin@email.com";
-        $user->password = brcypt("password");
+        $user->password = bcrypt('query');
         $user->save();
-        $user->roles()->attach($role_amdin);
+        $user->roles()->attach($role_admin);
     }
 
 }

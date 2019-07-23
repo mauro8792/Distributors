@@ -20,6 +20,10 @@
             <input type="text"  class="form-control" value="{{$usuario->name}}" disabled >
             <input type="hidden"  name="name1" value="{{$usuario->name}}">
         </div>
+         <div class="form-group">
+           
+            <input type="hidden"  name="user_id" value="{{$usuario->id}}">
+        </div>
         <div class="form-group">
             <label for="">Last Name</label>
             <input type="text" name="lastname" class="form-control" value="{{$usuario->lastname}}" disabled >

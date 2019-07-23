@@ -14,9 +14,17 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products= Product::all();
-        $dist = Distributor::all();
-        return view('products.index', compact('products','dist'));
+        //$request->user()->authorizeRoles(['admin']);
+        $products= Product::with(['distributor' => function($query){
+            $query->select('id', 'name');
+        }])->get();
+       // $dist = Distributor::all();
+        //dd($products);
+        //dd($dist);
+        return view('products.index')
+            ->withProducts($products);
+
+        //return view('products.index', compact('products','dist'));
     }
 
     /**
@@ -26,6 +34,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+       // $request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
         return view('products.create', compact('dist'));
     }

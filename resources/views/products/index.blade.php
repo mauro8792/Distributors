@@ -24,11 +24,7 @@
                     <td>{{$prod->price}}</td>
                     <td>{{$prod->description}}</td>
                     <td>
-                        @foreach($dist as $dis)
-                        @if ($prod->distributor->id==$dis->id)
-                            {{$dis->name}}
-                        @endif      
-                        @endforeach                
+                       {{$prod->distributor->name}}              
                     </td>
                     
                     <td><a href="/products/{{$prod->slug}}/edit" class="btn btn-primary">Editar..</a> </td>

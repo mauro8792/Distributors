@@ -14,9 +14,12 @@ class CommerceController extends Controller
      */
     public function index(Request $request)
     {
+        //$request->user()->authorizeRoles(['admin']);
         $comercio=Commerce::all();
-        $dist = Distributor::all();
+        $dist=Distributor::all();
+        //bb($dist);
         return view('commerces.index', compact('comercio','dist'));
+         //return view('commerces.index', compact('comercio'));
     }
 
     /**
@@ -26,6 +29,7 @@ class CommerceController extends Controller
      */
     public function create(Request $request)
     {
+        //$request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
         return view('commerces.create', compact ('dist'));
     }

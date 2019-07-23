@@ -15,6 +15,7 @@ class DistributorController extends Controller
      */
     public function index(Request $request)
     {
+        //$request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
         return view('distributors.index', compact('dist'));
     }
@@ -24,8 +25,9 @@ class DistributorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        //$request->user()->authorizeRoles(['admin']);
         return view ('distributors.create');
     }
 
@@ -91,6 +93,7 @@ class DistributorController extends Controller
      */
     public function destroy(Distributor $distributor)
     {
+        //$request->user()->authorizeRoles(['admin']);
         $distributor->delete();
         return redirect()->route('distributors.index');
     }

@@ -4,6 +4,7 @@ namespace Distributor\Http\Controllers;
 use Distributor\Employee;
 use Distributor\User;
 use Distributor\Commerce;
+use Distributor\Role;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -15,6 +16,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
+        //$request->user()->authorizeRoles(['user']);
         $commerces=Commerce::all();
         $employees= Employee::all();
         return view('employees.index', compact('employees','commerces'));
@@ -25,10 +27,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {   
+       // $request->user()->authorizeRoles(['user']);
+        $role_user = Role::where('name','user')->first();
         $user= User::all();
         $usuario = $user->last();
+        $usuario->roles()->attach($role_user);
         $commerce = Commerce::all();
         return view('employees.create', compact('commerce','usuario'));
     }
@@ -52,7 +57,10 @@ class EmployeeController extends Controller
         $employee->birthdate = $request->input('birthdate');
         $employee->sexo = $request->input('sexo');
         $employee->slug = $request->input('name1');
+        $employee->user_id= $request->input('user_id');
         $employee->commerce()->associate($request->input('commerce'))->save();
+
+        
         return redirect()->route('employees.index');
     }
 

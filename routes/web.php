@@ -18,7 +18,11 @@ Route::get('/', function () {
 Route::resource('distributors', 'DistributorController');
 Route::resource('commerces', 'CommerceController');
 Route::resource('employees', 'EmployeeController');
-Route::resource('products', 'ProductController');
+//Route::resource('products', 'ProductController');
+Route::prefix('/productos')->name('products.')->group(function(){
+    Route::get('/', 'ProductController@index')
+        ->name('index');
+});
 Route::resource('sales', 'SaleController');
 
 Auth::routes();

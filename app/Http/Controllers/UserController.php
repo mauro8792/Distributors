@@ -1,28 +1,19 @@
 <?php
 
 namespace Distributor\Http\Controllers;
-use Distributor\Employee;
-use Distributor\Sale;
 use Distributor\User;
-use Distributor\Product;
-use Distributor\Distributor;
 use Illuminate\Http\Request;
 
-class SaleController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-       // $request->user()->authorizeRoles(['user']);
-        $products= Product::all();
-        $employees= Employee::all();
-        $dist = Distributor::all();
-        $ventas = Sale::all();
-        return view('sales.index', compact('dist','products','employees','ventas'));
+       //
     }
 
     /**
@@ -30,15 +21,9 @@ class SaleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {   
-        //$request->user()->authorizeRoles(['user']);
-        $products= Product::all();
-        //$employees= Employee::where('name',$request->user()->name);
-        $employees = Employee::all();
-        $employee = $employees->last();
-        return view('sales.create', compact('products','employee'));
-        
+    public function create()
+    {
+        //
     }
 
     /**
@@ -49,15 +34,7 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $now = new \DateTime();
-        $venta = new Sale();
-        $venta->employee_id = $request->input('id_employee');
-        $venta->product_id = $request->input('products');
-        $venta->amount= $request->input('amount');
-        $venta->date = $now->format('Y-m-d H:i:s');
-        $venta->save();
-        return 'piola';
-        //return redirect()->route('salees.index');
+        //
     }
 
     /**
@@ -102,9 +79,6 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        $venta = Sale()::find($id);
-        $venta->delete();
-        return redirect()->route('sales.index');
-         
+        //
     }
 }

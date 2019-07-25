@@ -7,6 +7,8 @@ use Distributor\User;
 use Distributor\Product;
 use Distributor\Distributor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Collection;
 
 class SaleController extends Controller
 {
@@ -17,12 +19,49 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-       // $request->user()->authorizeRoles(['user']);
+        $request->user()->authorizeRoles(['admin','user']);
         $products= Product::all();
         $employees= Employee::all();
         $dist = Distributor::all();
         $ventas = Sale::all();
+        
         return view('sales.index', compact('dist','products','employees','ventas'));
+
+/*
+        if($request->user()->authorizeRoles(['user'])){
+            $dist = Distributor::all();
+            $products= Product::all();
+            $user = Auth::user();
+            $empleados= Employee::all();
+            $ventas = Sale::with()
+            
+            foreach ($empleados as $empleado) {
+                if($empleado->user_id == $user->id){
+                    $employees = $empleado;
+                }
+            }
+            
+
+        }else{
+            $products= Product::all();
+            $employees= Employee::all();
+            $dist = Distributor::all();
+            $ventas = Sale::all();
+
+
+        }
+
+            return view('sales.index', compact('dist','products','employees','ventas'));
+
+
+
+*/
+
+
+
+
+
+
     }
 
     /**
@@ -34,9 +73,19 @@ class SaleController extends Controller
     {   
         //$request->user()->authorizeRoles(['user']);
         $products= Product::all();
-        //$employees= Employee::where('name',$request->user()->name);
-        $employees = Employee::all();
-        $employee = $employees->last();
+        $user = Auth::user();
+        $employees= Employee::all();
+        
+        //$employee = Employee::where('user_id','=', $user->id)->select('id','name');
+        //$employee = $employees->last();
+        foreach ($employees as $empleado) {
+            if($empleado->user_id == $user->id){
+                $employee = $empleado;
+            }
+        }
+        
+        //$empleados = Employee::select('employees')->select('id,nombre')->where($user->id, '=', $employees->id)->first();
+        //dd($employee->id);
         return view('sales.create', compact('products','employee'));
         
     }

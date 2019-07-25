@@ -16,7 +16,7 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        //$request->user()->authorizeRoles(['user']);
+        $request->user()->authorizeRoles(['admin']);
         $commerces=Commerce::all();
         $employees= Employee::all();
         return view('employees.index', compact('employees','commerces'));

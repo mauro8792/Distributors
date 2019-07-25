@@ -3,53 +3,73 @@
 @section('title', 'Employees')
 
 @section('content')
-    <p>List of Employees</p>
-
-    <table class="table">
-        <thead>
-            <th scope="col">Name  </th>
-            <th scope="col">Last Name  </th>
-            <th scope="col">Telephone</th>
-            <th scope="col">Dni  </th>
-            <th scope="col">Email</th>
-            <th scope="col">Birth Date  </th>
-            <th scope="col">Sexo  </th>
-            <th scope="col">Commerce</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Eliminar</th>
-        </thead>
-        <tbody>
-            @foreach($employees as $empleado)
-                
-                <tr>
-                    <th scope="row">{{$empleado->name}}</th>
-                    <th scope="row">{{$empleado->lastname}}</th>
-                    <td > {{$empleado->telephone}}</td>
-                    <td > {{$empleado->dni}}</td>
-                    <td > {{$empleado->email}}</td>
-                    <td > {{$empleado->birthdate}}</td>
-                    <td>{{$empleado->sexo}}</td>
-                    <td>
-                        @foreach($commerces as $Commerce)
-                           @if ($empleado->commerce->id==$Commerce->id)
-                                {{$Commerce->name}}
-                            @endif      
-                        @endforeach                
-                    </td>
-                    <td><a href="/employees/{{$empleado->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
-                    <td> <form method="POST" action="/employees/{{$empleado->slug}}">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                     <button type="submit" class="btn btn-danger">Eliminar</button> </form>
-                     </td>
-                </tr>
-                
-            @endforeach
-        </tbody>
-    </table>
-    <div>
-        <a href="/employees/create" class="btn btn-primary">Nuevo</a>
+ <div class="container">
+    <div class="row justify-content-center">
+       <div class="col-md-12 col-md-offset-8">
+            <h2 class="t_blanco">Listado de Empleados</h2>
+            <table class="table table-responsive">
+                <thead class="thead-light">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellido</th>
+                    <th scope="col">Telefono</th>
+                    <th scope="col">Dni</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Fecha Nac.</th>
+                    <th scope="col">Genero</th>
+                    <th scope="col">Comercio</th>
+                    <th scope="col" width="4%"><a href="/empleados/nuevo" class="btn btn-success btn-sm">Nuevo</a></th>
+                    <th scope="col" width="4%"></th>
+                </thead>
+                <tbody class="t_blanco">
+                    @foreach($employees as $empleado)
+                        <tr>
+                            <td>{{$empleado->name}}</td>
+                            <td>{{$empleado->lastname}}</td>
+                            <td>{{$empleado->telephone}}</td>
+                            <td>{{$empleado->dni}}</td>
+                            <td>{{$empleado->email}}</td>
+                            <td>{{$empleado->birthdate}}</td>
+                            <td>{{$empleado->sexo}}</td>
+                            <td>
+                                @foreach($commerces as $Commerce)
+                                   @if ($empleado->commerce->id==$Commerce->id)
+                                        {{$Commerce->name}}
+                                    @endif      
+                                @endforeach                
+                            </td>
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalDelete{{$empleado->id}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header bg-danger">
+                                    <h5 class="modal-title t_blanco" id="modalDeleteLabel">Eliminar</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>Desea eliminar el registro <strong>{{$empleado->name}} {{$empleado->lastname}}</strong></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <form method="POST" action="/employees/{{$empleado->slug}}">
+                                            {{ csrf_field() }}
+                                            {{ method_field('DELETE') }}
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form>            
+                                  </div>
+                                </div>
+                              </div>
+                            </div>     
+                            <!-- End Modal -->                             
+                            <td><a href="/employees/{{$empleado->slug}}/edit" class="btn btn-success btn-sm">&nbsp;Editar&nbsp;</a> </td>
+                            <td><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$empleado->id}}">Eliminar</button>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>   
     </div>
-   
+</div>  
 
 @endsection

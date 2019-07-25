@@ -3,49 +3,60 @@
 @section('title', 'Edit Employee')
 
 @section('content')
-    <p>Employee: </p>
-<form class="form-group" method="POST" action="/employees/{{$employee->slug}}">
-        @method('put')
-        @csrf
-        <div class="form-group">
-            <label for="">Name</label>
-            <input type="text" name="name" class="form-control" value="{{$employee->name}}">
-        </div>
-        <div class="form-group">
-            <label for="">Last Name</label>
-            <input type="text" name="lastname" class="form-control" value="{{$employee->lastname}}">
-        </div>
-        
-        <div class="form-group">
-            <label for="">Telephone</label>
-            <input type="text" name="telephone" class="form-control" value="{{$employee->telephone}}">
-        </div>
-        <div class="form-group">
-            <label for="">Dni</label>
-            <input type="text" name="dni" class="form-control" value="{{$employee->dni}}">
-        </div>
-        <div class="form-group">
-            <label for="">Email</label>
-            <input type="email" name="email" class="form-control" value="{{$employee->email}}">
-        </div>
-        <div class="form-group">
-            <label for="">Birth Date</label>
-            <input type="text" name="birthdate" class="form-control" value="{{$employee->birthdate}}">
-        </div>
-        <div class="form-group">
-            <label for="">Sex</label>
-            <input type="text" name="sexo" class="form-control" value="{{$employee->sexo}}">
-        </div>       
-        <div class="form-goup">
-            <label for="">Select to Commerce</label>
-            
-               <select name="commerce">
-                   @foreach($commerce as $com)
-                        <option value="{{$com->id}}">{{$com->name}}</option>
-                    @endforeach
-                </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </form> 
-
+ <div class="container">
+    <div class="row justify-content-center">
+       <div class="col-md-10 col-md-offset-8">
+            <form class="form-group" method="POST" action="/employees/{{$employee->slug}}">
+                <h2 class="t_blanco">Editar Empleado: </h2>                
+                    @method('put')
+                    @csrf
+                <div class="form-row">                    
+                    <div class="col-md-6 mb-4">
+                        <label for="name" class="t_blanco">Nombre</label>
+                        <input type="text" name="name" id="name" class="form-control input-lg text-success" value="{{$employee->name}}">
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <label for="lastname" class="t_blanco">Apellido</label>
+                        <input type="text" name="lastname" id="lastname" class="form-control input-lg text-success" value="{{$employee->lastname}}">
+                    </div>
+                </div>
+                <div class="form-row">    
+                    <div class="col-md-4 mb-3">
+                        <label for="telephone" class="t_blanco">Telefono</label>
+                        <input type="text" name="telephone" id="telephone" class="form-control input-lg text-success" value="{{$employee->telephone}}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="dni" class="t_blanco">Dni</label>
+                        <input type="text" name="dni" id="dni" class="form-control input-lg text-success" value="{{$employee->dni}}">
+                    </div>               
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="t_blanco">Email</label>
+                        <input type="email" name="email" id="email" class="form-control input-lg text-success" value="{{$employee->email}}">
+                    </div>
+                </div>
+                <div class="form-row">                    
+                    <div class="col-md-4 mb-3">
+                        <label for="birthdate" class="t_blanco">Fecha de Nacimiento</label>
+                        <input type="date" name="birthdate" id="birthdate" class="form-control input-lg text-success" value="{{$employee->birthdate}}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="sex" class="t_blanco">Genero</label>
+                        <input type="text" name="sexo" id="sex" class="form-control input-lg text-success" value="{{$employee->sexo}}">
+                    </div>       
+                    <div class="col-md-4 mb-4">
+                        <label for="commerce" class="control-label t_blanco">Seleccione Comercio</label>
+                           <select class="form-control text-success" name="commerce" id="commerce">
+                               @foreach($commerce as $com)
+                                    <option value="{{$com->id}}" class="form-control input-lg text-success">{{$com->name}}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                </div>
+                <div class="form-group text-center">                
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+                </form> 
+        </div>              
+    </div>  
+</div>  
 @endsection

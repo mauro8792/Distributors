@@ -23,15 +23,14 @@
                     <td > telefono</td>
                     <td>email</td>
                     <td><a href="/teams/{{$distributor->slug}}/edit" class="btn btn-primary">Editar..</a> </td>
-                <td> <form method="POST" action="/distributors/{{$distributor->slug}}">
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                     <button type="submit" class="btn btn-danger">Eliminar</button> </form>
-                </td>
+                    <td> <form method="POST" action="/distributors/{{$distributor->slug}}">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                         <button type="submit" class="btn btn-danger">Eliminar</button> </form>
+                    </td>
                 </tr>
             
         </tbody>
     </table>
    
-
 @endsection

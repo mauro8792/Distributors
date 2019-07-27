@@ -3,6 +3,7 @@
 namespace Distributor\Http\Controllers\Auth;
 
 use Distributor\User;
+use Distributor\Role;
 use Distributor\Commerce;
 use Distributor\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -65,7 +66,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {   
         
-        return User::create([
+        $user =User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
@@ -73,6 +74,10 @@ class RegisterController extends Controller
             
         ]);
 
+        $user 
+            ->roles()
+            ->attach(Role::where('name','user')->first());
+        return $user;
         
     }
     

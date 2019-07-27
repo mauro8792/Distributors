@@ -29,11 +29,11 @@ class EmployeeController extends Controller
      */
     public function create(Request $request)
     {   
-       // $request->user()->authorizeRoles(['user']);
-        $role_user = Role::where('name','user')->first();
+        //$request->user()->authorizeRoles(['user','admin']);
+       // $role_user = Role::where('name','user')->first();
         $user= User::all();
         $usuario = $user->last();
-        $usuario->roles()->attach($role_user);
+       // $usuario->roles()->attach($role_user);
         $commerce = Commerce::all();
         return view('employees.create', compact('commerce','usuario'));
     }
@@ -61,7 +61,7 @@ class EmployeeController extends Controller
         $employee->commerce()->associate($request->input('commerce'))->save();
 
         
-        return redirect()->route('employees.index');
+        return redirect()->route('sales.index');
     }
 
     /**

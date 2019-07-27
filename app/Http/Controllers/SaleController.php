@@ -19,6 +19,7 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
+        /*
         $request->user()->authorizeRoles(['admin','user']);
         $products= Product::all();
         $employees= Employee::all();
@@ -26,41 +27,54 @@ class SaleController extends Controller
         $ventas = Sale::all();
         
         return view('sales.index', compact('dist','products','employees','ventas'));
-
-/*
-        if($request->user()->authorizeRoles(['user'])){
+        $user = Auth::user();
             $dist = Distributor::all();
             $products= Product::all();
-            $user = Auth::user();
             $empleados= Employee::all();
-            $ventas = Sale::with()
+        
+            //$request->user()->authorizeRoles(['user']);
             
-            foreach ($empleados as $empleado) {
-                if($empleado->user_id == $user->id){
-                    $employees = $empleado;
+            if($user->roles()->first()->name == 'user'){
+                //$dist = Distributor::all();
+               // $products= Product::all();
+                //$user = Auth::user();
+                //$user->roles()->first()->name;
+               // var_dump($dist);
+                //$empleados= Employee::all();
+                $empleadito = new Employee();
+           // $employees= Employee::all();
+           // $ventas = Sale::all();
+                
+            
+                foreach ($empleados as $empleado) {
+                    if($empleado->user_id == $user->id){
+                        $empleadito = $empleado;
+                        $ventas = Sale::where('employee_id', $empleadito->id)->get();   
+                    }
                 }
+                $employees = Collection::make($empleadito);
+                return view('sales.index', compact('dist','products','employees','ventas'));
+            }else if ($user->roles()->first()->name == 'admin') {
+                
+            }*/
+            if(Auth::user()->hasRole('user')){
+                $user=Auth::user();
+                $products=Product::all();
+                $em = Employee::where('user_id',$user->id)->first();
+                $employees[]=$em;
+                $dist = Distributor::all();
+                $ventas=Sale::where('employee_id',$em->id)->get();
+            }else {
+                $dist = Distributor::all();
+                $products= Product::all();
+                $employees= Employee::all();
+                
+                $ventas = Sale::all();
             }
-            
-
-        }else{
-            $products= Product::all();
-            $employees= Employee::all();
-            $dist = Distributor::all();
-            $ventas = Sale::all();
-
-
-        }
-
+            //dd($employees);
+            //
             return view('sales.index', compact('dist','products','employees','ventas'));
-
-
-
-*/
-
-
-
-
-
+       
 
     }
 

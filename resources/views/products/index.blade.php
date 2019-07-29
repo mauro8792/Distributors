@@ -6,13 +6,10 @@
  <div class="container">
     <div class="row justify-content-center">
        <div class="col-md-11 col-md-offset-8">
-            <h2 class="t_blanco">Listado de Productos</h2>
+            <h2 class="t_blanco">Listado de Lineas</h2>
             <table class="table table-responsive">
                 <thead class="thead-light">
                     <th scope="col">Nombre</th>
-                    <th scope="col">Cantidad</th>
-                    <th scope="col">Precio</th>
-                    <th scope="col">Descripcion</th>
                     <th scope="col">Distribuidor</th>
                     <th scope="col" width="5%"><a href="/productos/nuevo" class="btn btn-success btn-sm">Nuevo</a></th>
                     <th scope="col" width="5%"></th>
@@ -21,9 +18,6 @@
                     @foreach($products as $prod)
                         <tr>
                             <td>{{$prod->name}}</td>
-                            <td>{{$prod->amount}}</td>
-                            <td>{{$prod->price}}</td>
-                            <td>{{$prod->description}}</td>
                             <td>
                                {{$prod->distributor->name}}              
                             </td>

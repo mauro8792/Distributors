@@ -16,7 +16,7 @@
                 </div>
             @endif
             <form class="form-group" method="POST" action="/products">
-                <h2 class="t_blanco">Nuevo Producto: </h2>                
+                <h2 class="t_blanco">Nuevo Linea: </h2>                
                 @csrf
                 <div class="form-row">
                     <div class="col-md-6 mb-4">
@@ -24,22 +24,12 @@
                         <input type="text" name="name" id="name" class="form-control input-lg text-success">
                     </div>
                     
-                    <div class="col-md-6 mb-4">
-                        <label for="amount" class="t_blanco">Cantidad</label>
-                        <input type="text" name="amount" id="amount" class="form-control input-lg text-success">
-                    </div>
+                 
                 </div>
+                
+                    
                 <div class="form-row">                
-                    <div class="col-md-12 mb-4">
-                        <label for="description" class="t_blanco">Descripcion</label>
-                        <input type="text" name="description" id="description" class="form-control input-lg text-success">
-                    </div>
-                </div>
-                <div class="form-row">                
-                    <div class="col-md-6 mb-4">
-                        <label for="price" class="t_blanco">Precio</label>
-                        <input type="text" name="price" id="price" class="form-control input-lg text-success">
-                    </div>
+                    
                     
                     <div class="col-md-6 mb-4">
                         <label for="distributor" class="t_blanco">Seleccione Distribuidor</label>

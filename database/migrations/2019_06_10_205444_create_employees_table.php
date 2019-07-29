@@ -17,11 +17,9 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('lastname');
-            $table->string('telephone');
+            $table->string('telephone')->nullable();
             $table->string('dni')->unique();
             $table->string('email')->unique();
-            $table->date('birthdate');
-            $table->string('sexo');
             $table->timestamps();
         });
     }

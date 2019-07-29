@@ -17,6 +17,7 @@ class CreateSalesTable extends Migration
             $table->increments('id');
             $table->integer('employee_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->float('kilograms', 8, 2);
             $table->float('amount', 8, 2);
             $table->date('date');
             $table->timestamps();

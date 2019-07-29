@@ -14,8 +14,6 @@
                     <th scope="col">Telefono</th>
                     <th scope="col">Dni</th>
                     <th scope="col">Email</th>
-                    <th scope="col">Fecha Nac.</th>
-                    <th scope="col">Genero</th>
                     <th scope="col">Comercio</th>
                     <th scope="col" width="4%"><a href="/empleados/nuevo" class="btn btn-success btn-sm">Nuevo</a></th>
                     <th scope="col" width="4%"></th>
@@ -28,8 +26,6 @@
                             <td>{{$empleado->telephone}}</td>
                             <td>{{$empleado->dni}}</td>
                             <td>{{$empleado->email}}</td>
-                            <td>{{$empleado->birthdate}}</td>
-                            <td>{{$empleado->sexo}}</td>
                             <td>
                                 @foreach($commerces as $Commerce)
                                    @if ($empleado->commerce->id==$Commerce->id)

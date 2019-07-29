@@ -10,7 +10,8 @@
             <table class="table table-responsive">
                 <thead class="thead-light">
                     <th scope="col">Empleado</th>
-                    <th scope="col">Producto</th>
+                    <th scope="col">Linea</th>
+                    <th scope="col">Kilogramos</th>
                     <th scope="col">Cantidad</th>
                     <th scope="col">Fecha</th>
                     <th scope="col" width="5%"><a href="/ventas/nueva" class="btn btn-success btn-sm">Nuevo</a></th>
@@ -38,6 +39,9 @@
                                     {{$product->name}}
                                 @endif      
                                 @endforeach                
+                            </td>
+                            <td>
+                                {{$venta->kilograms}}
                             </td>
                             <td>
                                 {{$venta->amount}}

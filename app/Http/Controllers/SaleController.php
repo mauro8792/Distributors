@@ -116,11 +116,12 @@ class SaleController extends Controller
         $venta = new Sale();
         $venta->employee_id = $request->input('id_employee');
         $venta->product_id = $request->input('products');
+        $venta->kilograms= $request->input('kilograms');
         $venta->amount= $request->input('amount');
         $venta->date = $now->format('Y-m-d H:i:s');
         $venta->save();
-        return 'piola';
-        //return redirect()->route('salees.index');
+        //return 'piola';
+        return redirect()->route('sales.index');
     }
 
     /**

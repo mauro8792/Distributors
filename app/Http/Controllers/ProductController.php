@@ -49,9 +49,10 @@ class ProductController extends Controller
     {
         $producto = new Product();
         $producto->name= $request->input('name');
-        $producto->amount= $request->input('amount');
-        $producto->price = $request->input('price');
-        $producto->description = $request->input('description');
+        //$producto->amount= $request->input('amount');
+        //$producto->price = $request->input('price');
+        //$producto->description = $request->input('description');
+        //$producto->kilograms = $request->input('kilograms');
         $producto->slug= $request->input('name');
         $producto->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('products.index');
@@ -90,9 +91,10 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->name= $request->input('name');
-        $product->amount=$request->input('amount');
-        $product->price=$request->input('price');
-        $product->description=$request->input('description');
+       // $product->kilograms = $request->input('kilograms');
+       // $product->amount=$request->input('amount');
+       // $product->price=$request->input('price');
+       // $product->description=$request->input('description');
         $product->slug=$request->input('name');
         $product->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('products.index');

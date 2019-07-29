@@ -8,29 +8,33 @@
 
     @if(Route::has('login'))
       @auth
-        <li class="nav-item"><a class="nav-link" href="{{url('/')}}"><span class="oi" data-glyph="home" title="Home" aria-hidden="true"></span> Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('commerces.index') }}">Comercios</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('employees.index') }}">Empleados</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('distributors.index') }}">Distribuidores</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('sales.index') }}">Ventas</a></li>        
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                Usuario: {{ Auth::user()->name }}
-            </a>
+        @if(Auth::user()->hasRole('admin'))
+          <li class="nav-item"><a class="nav-link" href="{{url('/')}}"><span class="oi" data-glyph="home" title="Home" aria-hidden="true"></span> Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Lineas</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('commerces.index') }}">Comercios</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('employees.index') }}">Empleados</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('distributors.index') }}">Distribuidores</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ route('sales.index') }}">Ventas</a></li>
+        @else
+          <li class="nav-item"><a class="nav-link" href="{{ route('sales.index') }}">Ventas</a></li>
+        @endif        
+          <li class="nav-item dropdown">
+              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  Usuario: {{ Auth::user()->name }}
+              </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}"
-                   onclick="event.preventDefault();
-                                 document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
+              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                                  document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
 
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-            </div>
-        </li>        
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                      @csrf
+                  </form>
+              </div>
+          </li>        
       @else 
         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrese</a></li>        

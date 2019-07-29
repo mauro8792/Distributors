@@ -35,14 +35,7 @@
                     </div>
                 </div>
                 <div class="form-row">                    
-                    <div class="col-md-4 mb-3">
-                        <label for="birthdate" class="t_blanco">Fecha de Nacimiento</label>
-                        <input type="date" name="birthdate" id="birthdate" class="form-control input-lg text-success" value="{{$employee->birthdate}}">
-                    </div>
-                    <div class="col-md-4 mb-3">
-                        <label for="sex" class="t_blanco">Genero</label>
-                        <input type="text" name="sexo" id="sex" class="form-control input-lg text-success" value="{{$employee->sexo}}">
-                    </div>       
+                          
                     <div class="col-md-4 mb-4">
                         <label for="commerce" class="control-label t_blanco">Seleccione Comercio</label>
                            <select class="form-control text-success" name="commerce" id="commerce">

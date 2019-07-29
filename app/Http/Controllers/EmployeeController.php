@@ -54,8 +54,6 @@ class EmployeeController extends Controller
         $employee->telephone = $request->input('telephone');
         $employee->dni = $request->input('dni');
         $employee->email = $request->input('email1');
-        $employee->birthdate = $request->input('birthdate');
-        $employee->sexo = $request->input('sexo');
         $employee->slug = $request->input('name1');
         $employee->user_id= $request->input('user_id');
         $employee->commerce()->associate($request->input('commerce'))->save();
@@ -101,8 +99,6 @@ class EmployeeController extends Controller
         $employee->telephone = $request->input('telephone');
         $employee->dni = $request->input('dni');
         $employee->email = $request->input('email');
-        $employee->birthdate = $request->input('birthdate');
-        $employee->sexo = $request->input('sexo');
         $employee->slug = $request->input('name');
         $employee->commerce()->associate($request->input('commerce'))->save();
         return redirect()->route('employees.index');

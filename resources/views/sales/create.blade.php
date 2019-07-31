@@ -19,11 +19,11 @@
                 <h2 class="t_blanco">Nueva Venta: </h2>                 
                 @csrf
                 <div class="form-row">
-                   <!-- <div class="col-md-6 mb-4">
+                   <div class="col-md-6 mb-4">
                         <label for="employee" class="t_blanco">Empleado</label>
                         <input type="text" name="employee" id="employee" class="form-control input-lg text-success" value="{{$employee->name}}" disabled >
                         <input type="hidden"  name="id_employee" value="{{$employee->id}}">
-                    </div> -->
+                    </div>
                           <input type="hidden"  name="id_employee" value="{{$employee->id}}">
                     <div class="col-md-6 mb-4">
                         <label for="products" class="control-label t_blanco">Select to Line</label>
@@ -32,11 +32,12 @@
                                     <option value="{{$prod->id}}" class="form-control input-lg text-success">{{$prod->name}}</option>
                                 @endforeach
                             </select>
-                    </div>  
-                    <div class="form-row">
-                     <div class="col-md-6 mb-4">
-                        <label for="kilograms" class="t_blanco">Kilogramos</label>
-                        <select name="kilograms">
+                    </div>
+                </div>  
+                <div class="form-row">
+                    <div class="col-md-2 mb-4">
+                        <label for="kilograms" class="control-label t_blanco">Kilogramos</label>
+                            <select class="form-control text-success" name="kilograms" id="kilograms">
                             <option value="0.5">0.5</option> 
                             <option value="1" selected>1</option>
                             <option value="1.5">1.5</option>
@@ -47,13 +48,10 @@
                             <option value="15">15</option>
                             <option value="20">20</option>
                             <option value="21">21</option>
-
                         </select>
-                        
                     </div>
-                </div>
                  
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="amount" class="t_blanco">Cantidad</label>
                         <input type="text" name="amount" id="amount" class="form-control input-lg text-success">
                     </div>     

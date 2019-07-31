@@ -11,13 +11,17 @@
                     @method('put')
                     @csrf
                 <div class="form-row">                    
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="name" class="t_blanco">Nombre</label>
                         <input type="text" name="name" id="name" class="form-control input-lg text-success" value="{{$employee->name}}">
                     </div>
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="lastname" class="t_blanco">Apellido</label>
                         <input type="text" name="lastname" id="lastname" class="form-control input-lg text-success" value="{{$employee->lastname}}">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="email" class="t_blanco">Email</label>
+                        <input type="email" name="email" id="email" class="form-control input-lg text-success" value="{{$employee->email}}">
                     </div>
                 </div>
                 <div class="form-row">    
@@ -29,13 +33,6 @@
                         <label for="dni" class="t_blanco">Dni</label>
                         <input type="text" name="dni" id="dni" class="form-control input-lg text-success" value="{{$employee->dni}}">
                     </div>               
-                    <div class="col-md-4 mb-3">
-                        <label for="email" class="t_blanco">Email</label>
-                        <input type="email" name="email" id="email" class="form-control input-lg text-success" value="{{$employee->email}}">
-                    </div>
-                </div>
-                <div class="form-row">                    
-                          
                     <div class="col-md-4 mb-4">
                         <label for="commerce" class="control-label t_blanco">Seleccione Comercio</label>
                            <select class="form-control text-success" name="commerce" id="commerce">

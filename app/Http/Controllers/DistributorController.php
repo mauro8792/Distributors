@@ -16,7 +16,7 @@ class DistributorController extends Controller
     public function index(Request $request)
     {
         //$request->user()->authorizeRoles(['admin']);
-        $dist = Distributor::all();
+        $dist = Distributor::orderBy('name','asc')->get();
         return view('distributors.index', compact('dist'));
     }
 

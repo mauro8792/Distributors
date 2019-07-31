@@ -14,12 +14,13 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $orden = 'desc')
     {
+        $orden = ($orden == 'desc')?'asc':'desc';
         $request->user()->authorizeRoles(['admin']);
         $commerces=Commerce::all();
-        $employees= Employee::all();
-        return view('employees.index', compact('employees','commerces'));
+        $employees= Employee::orderBy('lastname',$orden,'name',$orden)->get();
+        return view('employees.index', compact('employees','commerces','orden'));
     }
 
     /**

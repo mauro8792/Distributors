@@ -9,8 +9,7 @@
             <h2 class="t_blanco">Listado de Empleados</h2>
             <table class="table table-responsive">
                 <thead class="thead-light">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellido</th>
+                    <th scope="col"><a href="/empleados/{{$orden}}" class="text-success" style="text-decoration:none" data-toggle="tooltip" title="Orden {{$orden}}">Nombre&nbsp;<i class="fa fa-arrow-{{($orden=='asc')?'up':'down'}}"></i></a></th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Dni</th>
                     <th scope="col">Email</th>
@@ -21,8 +20,7 @@
                 <tbody class="t_blanco">
                     @foreach($employees as $empleado)
                         <tr>
-                            <td>{{$empleado->name}}</td>
-                            <td>{{$empleado->lastname}}</td>
+                            <td>{{$empleado->lastname}}, {{$empleado->name}}</td>
                             <td>{{$empleado->telephone}}</td>
                             <td>{{$empleado->dni}}</td>
                             <td>{{$empleado->email}}</td>

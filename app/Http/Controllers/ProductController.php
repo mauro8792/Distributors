@@ -17,7 +17,7 @@ class ProductController extends Controller
         //$request->user()->authorizeRoles(['admin']);
         $products= Product::with(['distributor' => function($query){
             $query->select('id', 'name');
-        }])->get();
+        }])->orderBy('name','asc')->get();
        // $dist = Distributor::all();
         //dd($products);
         //dd($dist);

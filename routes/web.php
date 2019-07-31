@@ -11,50 +11,58 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+
+
+
+Route::prefix('home')->name('home')->group(function () {
+    Route::get('/', 'HomeController@index')->name('index');
+});
+
+// Distribuidora
 Route::resource('distributors', 'DistributorController');
 Route::prefix('/distribuidores')->name('distributors.')->group(function(){
     Route::get('/', 'DistributorController@index')->name('index');
-});
-Route::prefix('/distribuidores/nuevo')->name('distributors.create')->group(function(){
-    Route::get('/', 'DistributorController@create')->name('create');
+    Route::get('/nuevo', 'DistributorController@create')->name('create');
+    Route::delete('/delete/{id}','DistributorController@destroy')->name('destroy');      
 });
 
+// Comercios
 Route::resource('commerces', 'CommerceController');
 Route::prefix('/comercios')->name('commerces.')->group(function(){
     Route::get('/', 'CommerceController@index')->name('index');
-});
-Route::prefix('/comercios/nuevo')->name('commerces.create')->group(function(){
-    Route::get('/', 'CommerceController@create')->name('create');
+    Route::get('/nuevo', 'CommerceController@create')->name('create');
+    Route::delete('/delete/{id}','ComerceController@destroy')->name('destroy');      
 });
 
+//Empleados
 Route::resource('employees', 'EmployeeController');
 Route::prefix('/empleados')->name('employees.')->group(function(){
-    Route::get('/', 'EmployeeController@index')->name('index');
-});
-Route::prefix('/empleados/nuevo')->name('employees.create')->group(function(){
-    Route::get('/', 'EmployeeController@create')->name('create');
+    Route::get('/{orden?}', 'EmployeeController@index')->name('index');
+    Route::get('/nuevo', 'EmployeeController@create')->name('create'); 
+    Route::delete('/delete/{id}','EmployeeController@destroy')->name('destroy');  
 });
 
+
+// Productos
 Route::resource('products', 'ProductController');
 Route::prefix('/productos')->name('products.')->group(function(){
     Route::get('/', 'ProductController@index')->name('index');
-});
-Route::prefix('/productos/nuevo')->name('products.create')->group(function(){
-    Route::get('/', 'ProductController@create')->name('create');
+    Route::get('/nuevo', 'ProductController@create')->name('create');
+    Route::delete('/delete/{id}','ProductController@destroy')->name('destroy');      
 });
 
+// Ventas
 Route::resource('sales', 'SaleController');
 Route::prefix('/ventas')->name('sales.')->group(function(){
     Route::get('/', 'SaleController@index')->name('index');
+    Route::get('/nueva', 'SaleController@create')->name('create');
+    Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');      
 });
-Route::prefix('/ventas/nueva')->name('sales.create')->group(function(){
-    Route::get('/', 'SaleController@create')->name('create');
-});
-
-Auth::routes();
-
+Route::resource('home', 'HomeController');
 Route::get('/home', 'HomeController@index')->name('home');

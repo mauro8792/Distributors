@@ -15,7 +15,7 @@ class CommerceController extends Controller
     public function index(Request $request)
     {
         //$request->user()->authorizeRoles(['admin']);
-        $comercio=Commerce::all();
+        $comercio=Commerce::orderBy('name','asc')->get();
         $dist=Distributor::all();
         //bb($dist);
         return view('commerces.index', compact('comercio','dist'));

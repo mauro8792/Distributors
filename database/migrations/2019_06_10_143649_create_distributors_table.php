@@ -18,7 +18,7 @@ class CreateDistributorsTable extends Migration
             $table->string('name');
             $table->string('telephone');
             $table->string('address');
-            $table->string('slug')->unique()->nullable($value = true);
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }

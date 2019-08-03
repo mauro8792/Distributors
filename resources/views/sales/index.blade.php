@@ -51,7 +51,7 @@
                                 {{$venta->amount}}
                             </td>
                             <td>
-                                {{$venta->date}}
+                                {{$venta->created_at->format('d-m-Y')}}
                             </td>
                             <!--
                             <td><a href="/sales/{{$venta->id}}/edit" class="btn btn-success btn-sm">&nbsp;Editar&nbsp;</a></td>

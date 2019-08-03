@@ -62,7 +62,9 @@ Route::resource('sales', 'SaleController');
 Route::prefix('/ventas')->name('sales.')->group(function(){
     Route::get('/', 'SaleController@index')->name('index');
     Route::get('/nueva', 'SaleController@create')->name('create');
-    Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');      
+    Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');
+    Route::get('/forEmployee','SaleController@salesForEmployee')->name('salesForEmployee'); 
+    Route::get('/employee','SaleController@searchSale')->name('searchSale');      
 });
 Route::resource('home', 'HomeController');
 Route::get('/home', 'HomeController@index')->name('home');

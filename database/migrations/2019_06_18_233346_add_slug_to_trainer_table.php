@@ -25,8 +25,8 @@ class AddSlugToTrainerTable extends Migration
      */
     public function down()
     {
-        Schema::table('employees', function (Blueprint $table) {
+        /*Schema::table('employees', function (Blueprint $table) {
             
-        });
+        });*/
     }
 }

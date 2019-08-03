@@ -19,8 +19,11 @@ class CreateSalesTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->float('kilograms', 8, 2);
             $table->float('amount', 8, 2);
-            $table->date('date');
+           // $table->date('date');
             $table->timestamps();
+
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

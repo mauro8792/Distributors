@@ -96,7 +96,8 @@ class ProductController extends Controller
        // $product->price=$request->input('price');
        // $product->description=$request->input('description');
         $product->slug=$request->input('name');
-        $product->distributor()->associate($request->input('distributor'))->save();
+        //to que aca
+        $product->distributor()->attach($request->input('distributor'));
         return redirect()->route('products.index');
     }
 

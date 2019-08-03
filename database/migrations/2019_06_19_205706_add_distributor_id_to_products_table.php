@@ -14,7 +14,9 @@ class AddDistributorIdToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->integer('distributor_id')->unigned();
+            $table->integer('distributor_id')->unsigned();
+
+            $table->foreign('distributor_id')->references('id')->on('distributors');
         });
     }
 
@@ -25,8 +27,9 @@ class AddDistributorIdToProductsTable extends Migration
      */
     public function down()
     {
+        
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('distributor_id');
+            $table->dropForeign(['distributor_id']);
         });
     }
 }

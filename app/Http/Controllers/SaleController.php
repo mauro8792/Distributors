@@ -19,6 +19,7 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
+        
         if(Auth::user()->hasRole('user')){
             $user=Auth::user();
             $products=Product::all();
@@ -26,6 +27,7 @@ class SaleController extends Controller
             $employees[]=$em;
             //$dist = Distributor::all();
             $ventas=Sale::where('employee_id',$em->id)->get();
+            
         }else {
             //$dist = Distributor::all();
             $products= Product::all();
@@ -72,15 +74,8 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        $now = new \DateTime();
-        $venta = new Sale();
-        $venta->employee_id = $request->input('id_employee');
-        $venta->product_id = $request->input('products');
-        $venta->kilograms= $request->input('kilograms');
-        $venta->amount= $request->input('amount');
-        $venta->date = $now->format('Y-m-d H:i:s');
-        $venta->save();
-        //return 'piola';
+        $sale = Sale::create($request->all());
+        
         return redirect()->route('sales.index');
     }
 
@@ -130,5 +125,16 @@ class SaleController extends Controller
         $venta->delete();
         return redirect()->route('sales.index');
          
+    }
+    public function salesForEmployee(Request $request){
+    
+            $employees = Employee::all();
+            return view('sales.salesForEmployee', compact('employees'));
+    }
+    public function searchSale(Request $request){
+        
+        //return "hola";
+        $ventas=Sale::where('employee_id',1)->get();
+        return $ventas;
     }
 }

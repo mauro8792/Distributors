@@ -25,8 +25,8 @@ class AddSlugToProductTable extends Migration
      */
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
+        /*Schema::table('products', function (Blueprint $table) {
             //
-        });
+        });*/
     }
 }

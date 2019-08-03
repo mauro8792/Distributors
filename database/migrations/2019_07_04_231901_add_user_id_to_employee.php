@@ -15,6 +15,8 @@ class AddUserIdToEmployee extends Migration
     {
         Schema::table('employees', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,7 +28,7 @@ class AddUserIdToEmployee extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            //
+            $table->dropForeign(['user_id']);
         });
     }
 }

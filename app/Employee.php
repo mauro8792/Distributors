@@ -17,8 +17,8 @@ class Employee extends Model
     public function commerce(){
         return $this->belongsTo('Distributor\Commerce');
     }
-    public function products(){
-        return $this->belongsToMany('Distributor\Product');
+   
+    public function sales(){
+        return $this->hasMany('Distributor\Sale');
     }
-    
 }

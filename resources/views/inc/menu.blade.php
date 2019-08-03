@@ -18,7 +18,7 @@
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ventas</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="{{ route('sales.index') }}">Todas</a>            
-              <a class="dropdown-item" href="{{ route('sales.index') }}">Ventas Por Usuario</a>            
+              <a class="dropdown-item" href="{{ route('sales.salesForEmployee') }}">Ventas Por Usuario</a>            
               <a class="dropdown-item" href="{{ route('sales.index') }}">Ventas Por Línea</a>        
             </div>    
           </li>

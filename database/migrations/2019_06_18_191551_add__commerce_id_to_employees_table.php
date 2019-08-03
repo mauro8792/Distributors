@@ -14,7 +14,9 @@ class AddCommerceIdToEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->integer('commerce_id')->unigned();
+            $table->integer('commerce_id')->unsigned();
+
+            $table->foreign('commerce_id')->references('id')->on('commerces');
         });
     }
 
@@ -26,7 +28,7 @@ class AddCommerceIdToEmployeesTable extends Migration
     public function down()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->dropColumn('commerce_id');
+            $table->dropForeign(['commerce_id']);
         });
     }
 }

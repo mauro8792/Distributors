@@ -45,6 +45,7 @@ class DistributorController extends Controller
         $dist->address = $request->input('address');
         $dist->slug = $request->input('name');
         $dist->save();
+        
         return redirect()->route('distributors.index');
     }
 

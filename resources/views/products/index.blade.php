@@ -5,14 +5,13 @@
 @section('content')
  <div class="container">
     <div class="row justify-content-center">
-       <div class="col-md-11 col-md-offset-8">
+       <div class="col-md-10 col-md-offset-8">
             <h2 class="t_blanco">Listado de Lineas</h2>
             <table class="table table-responsive">
                 <thead class="thead-light">
                     <th scope="col">Nombre</th>
                     <th scope="col">Distribuidor</th>
-                    <th scope="col" width="5%"><a href="/productos/nuevo" class="btn btn-success btn-sm">Nuevo</a></th>
-                    <th scope="col" width="5%"></th>
+                    <th scope="col" width="2%" colspan="2"><a href="/productos/nuevo" class="btn btn-success btn-sm">Nuevo</a></th>
                 </thead>
                 <tbody class="t_blanco">
                     @foreach($products as $prod)
@@ -22,8 +21,8 @@
                                {{$prod->distributor->name}}              
                             </td>
                             
-                            <td><a href="/products/{{$prod->slug}}/edit" class="btn btn-success btn-sm">&nbsp;Editar&nbsp;</a></td>
-                            <td><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$prod->id}}">Eliminar</button>
+                            <td><a href="/products/{{$prod->slug}}/edit" class="btn btn-success" title="Editar"><i class="fa fa-pencil-square-o"></i></a></td>
+                            <td><button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete{{$prod->id}}" title="Eliminar"><i class="fa fa-trash-o"></i></button>
                         </tr>
                             <!-- Modal -->
                             <div class="modal fade" id="modalDelete{{$prod->id}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">

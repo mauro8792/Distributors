@@ -8,6 +8,7 @@ use Distributor\Product;
 use Distributor\Distributor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 
 class SaleController extends Controller
@@ -19,20 +20,22 @@ class SaleController extends Controller
      */
     public function index(Request $request)
     {
-        
-        if(Auth::user()->hasRole('user')){
+       if(Auth::user()->hasRole('user')){
             $user=Auth::user();
-            $products=Product::all();
-            $em = Employee::where('user_id',$user->id)->first();
-            $employees[]=$em;
-            //$dist = Distributor::all();
-            $ventas=Sale::where('employee_id',$em->id)->get();
-            
+            $em = Employee::where('user_id',$user->id)->first();           
+            $ventas = Sale::where('employee_id',$em->id)->with(['employee' => function($query){
+                $query->select('id', 'name','lastname');
+            }])
+            ->with(['product' => function($queryProduct){
+                $queryProduct->select('id','name');
+            }])->orderBy('created_at','asc')->get();        
         }else {
-            //$dist = Distributor::all();
-            $products= Product::all();
-            $employees= Employee::all();            
-            $ventas = Sale::all();
+            $ventas = Sale::with(['employee' => function($query){
+                $query->select('id', 'name','lastname');
+            }])
+            ->with(['product' => function($queryProduct){
+                $queryProduct->select('id','name');
+            }])->orderBy('created_at','asc')->get();            
         }
 
         return view('sales.index', compact('dist','products','employees','ventas'));
@@ -47,21 +50,11 @@ class SaleController extends Controller
      */
     public function create(Request $request)
     {   
-        //$request->user()->authorizeRoles(['user']);
+       //$request->user()->authorizeRoles(['user']);
         $products= Product::all();
         $user = Auth::user();
-        $employees= Employee::all();
-        
-        //$employee = Employee::where('user_id','=', $user->id)->select('id','name');
-        //$employee = $employees->last();
-        foreach ($employees as $empleado) {
-            if($empleado->user_id == $user->id){
-                $employee = $empleado;
-            }
-        }
-        
-        //$empleados = Employee::select('employees')->select('id,nombre')->where($user->id, '=', $employees->id)->first();
-        //dd($employee->id);
+        $employee = Employee::where('user_id',$user->id)->first();
+
         return view('sales.create', compact('products','employee'));
         
     }
@@ -134,7 +127,20 @@ class SaleController extends Controller
     public function searchSale(Request $request){
         
         //return "hola";
-        $ventas=Sale::where('employee_id',1)->get();
+        
+        //$ventas=Sale::where('employee_id',$request->input('employee_id'))->get();
+        //$ventas = DB::table('sales')->select('employee_id')->get();
+        $ventas=Sale::max('employee_id');
         return $ventas;
+
+        
+        
+        /*
+        $users = DB::table('users')
+            ->join('contacts', 'users.id', '=', 'contacts.user_id')
+            ->join('orders', 'users.id', '=', 'orders.user_id')
+            ->select('users.*', 'contacts.phone', 'orders.price')
+            ->get();
+        */
     }
 }

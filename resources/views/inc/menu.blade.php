@@ -8,7 +8,7 @@
 
     @if(Route::has('login'))
       @auth
-          <li class="nav-item"><a class="nav-link" href="{{url('/')}}"><span class="oi" data-glyph="home" title="Home" aria-hidden="true"></span> Home</a></li>      
+          <li class="nav-item"><a class="nav-link" href="{{url('/')}}"><i class="fa fa-home"></i> Home</a></li>      
         @if(Auth::user()->hasRole('admin'))
           <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Lineas</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ route('commerces.index') }}">Comercios</a></li>
@@ -27,15 +27,13 @@
         @endif        
           <li class="nav-item dropdown">
               <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                  Usuario: {{ Auth::user()->name }}
+                  <i class="fa fa-user"></i> Usuario: {{ Auth::user()->name }} {{ Auth::user()->lastname }}
               </a>
 
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
-                                  document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
-                  </a>
+                                  document.getElementById('logout-form').submit();"><i class="fa fa-sign-out" aria-hidden="true"></i> {{ __('Logout') }}</a>
 
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
@@ -43,8 +41,8 @@
               </div>
           </li>        
       @else 
-        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Registrese</a></li>        
+        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}"><i class="fa fa-sign-in" aria-hidden="true"></i> Login</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}"><i class="fa fa-user-plus" aria-hidden="true"></i> Registrese</a></li>        
       @endauth
     @endif
 

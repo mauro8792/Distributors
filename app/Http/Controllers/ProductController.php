@@ -14,17 +14,13 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+         //$request->user()->authorizeRoles(['admin']);
         $products= Product::with(['distributor' => function($query){
             $query->select('id', 'name');
         }])->orderBy('name','asc')->get();
-       // $dist = Distributor::all();
-        //dd($products);
-        //dd($dist);
-        return view('products.index')
-            ->withProducts($products);
 
-        //return view('products.index', compact('products','dist'));
+        return view('products.index')->withProducts($products);
+
     }
 
     /**

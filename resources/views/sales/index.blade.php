@@ -14,50 +14,21 @@
                     <th scope="col">Kgs.</th>
                     <th scope="col">Cant.</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col" width="5%">
+                    <th scope="col" width="2%">
                         @if(Auth::user()->hasRole('user'))
                             <a href="/ventas/nueva" class="btn btn-success btn-sm">Nueva</a>
                         @endif
                     </th>
-                    <th scope="col" width=5%></th>
                 </thead>
                 <tbody class="text-white">
                     @foreach($ventas as $venta)
                         <tr>
-                            <td>
-                                @foreach($employees as $employee)
-                                @if ($employee->id==$venta->employee_id)
-                                    @php
-                                        $empleado=$employee
-                                    @endphp
-                                    {{$employee->lastname}}, {{$employee->name}}
-                                @endif      
-                                @endforeach                
-                            </td>
-                            <td>
-                                @foreach($products as $product)                            
-                                @if ($product->id==$venta->product_id)
-                                    @php
-                                        $producto=$product->name
-                                    @endphp                                   
-                                    {{$product->name}}
-                                @endif      
-                                @endforeach                
-                            </td>
-                            <td>
-                                {{$venta->kilograms}}
-                            </td>
-                            <td>
-                                {{$venta->amount}}
-                            </td>
-                            <td>
-                                {{$venta->created_at->format('d-m-Y')}}
-                            </td>
-                            <!--
-                            <td><a href="/sales/{{$venta->id}}/edit" class="btn btn-success btn-sm">&nbsp;Editar&nbsp;</a></td>
-                            -->
-                            <td><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$venta->id}}">Eliminar</button>
-                            <td></td>                                
+                            <td>{{$venta->employee->lastname}}, {{$venta->employee->name}}</td>
+                            <td>{{$venta->product->name}}</td>
+                            <td>{{$venta->kilograms}}</td>
+                            <td>{{$venta->amount}}</td>
+                            <td>{{$venta->created_at->format('d-m-Y')}}</td>
+                            <td class="text-center"><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$venta->id}}" title="Eliminar"><i class="fa fa-trash-o"></i></button>                               
                         </tr>
                             <!-- Modal -->
                             <div class="modal fade" id="modalDelete{{$venta->id}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
@@ -70,7 +41,7 @@
                                     </button>
                                   </div>
                                   <div class="modal-body">
-                                    <p>Desea eliminar el registro <strong>{{$empleado->lastname}}, {{$empleado->name}} {{$producto}} {{$venta->date}}</strong></p>
+                                    <p>Desea eliminar el registro <strong>{{$venta->employee->lastname}}, {{$venta->employee->name}} {{$venta->product->name}} {{$venta->date}}</strong></p>
                                   </div>
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

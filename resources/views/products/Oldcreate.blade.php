@@ -5,7 +5,7 @@
 @section('content')
  <div class="container">
     <div class="row justify-content-center">
-       <div class="col-md-8 col-md-offset-8">
+       <div class="col-md-6 col-md-offset-8">
             @if($errors->any())
                 <div class="alert alert danger">
                     <ul>
@@ -19,12 +19,12 @@
                 <h2 class="text-white">Nuevo Linea: </h2>                
                 @csrf
                 <div class="form-row">
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="name" class="text-white">Nombre</label>
                         <input type="text" name="name" id="name" class="form-control input-lg text-success">
                     </div>
         
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="distributor" class="text-white">Seleccione Distribuidor</label>
                            <select class="form-control text-success" name="distributor" id="distributor">
                                @foreach($dist as $dis)
@@ -33,23 +33,19 @@
                             </select>
                     </div>
 
-
-                </div>
-
-                <div class="form-row">
-                     <div class="col-md-12 mb-4">
+                    <div class="col-md-4 mb-4">
                         <label for="distributor" class="text-white">Seleccione Kilogramos</label>
-                            <div class="input-group-prepend">
-
+                   
                                @foreach($kilograms as $k)
-                                <div class="input-group-text col-md-1 m-2"> 
-                                    <input type="checkbox" name="kgs[]" value="{{$k->id}}">{{$k->kilogram}}
+                               <div class="input-group-prepend">
+                                  <div class="input-group-text mb-3 col-md-4">  
+                                    <input type="checkbox" name="kgs" value="{{$k->id}}">{{$k->kilogram}}
+                                </div>
                                 </div>
                                 @endforeach
-                                
                     </div>
-                </div>
 
+                </div>
                 <div class="form-group text-center">                
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </div>

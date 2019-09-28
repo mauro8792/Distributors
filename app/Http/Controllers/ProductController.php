@@ -3,6 +3,7 @@
 namespace Distributor\Http\Controllers;
 use Distributor\Distributor;
 use Distributor\Product;
+use Distributor\Kilogram;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -32,7 +33,9 @@ class ProductController extends Controller
     {
        // $request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
-        return view('products.create', compact('dist'));
+        $kilograms = Kilogram::all();
+        //dd($kilograms);
+        return view('products.create', compact('dist','kilograms'));
     }
 
     /**
@@ -43,14 +46,16 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request->kgs);
         $producto = new Product();
         $producto->name= $request->input('name');
-        //$producto->amount= $request->input('amount');
-        //$producto->price = $request->input('price');
-        //$producto->description = $request->input('description');
-        //$producto->kilograms = $request->input('kilograms');
         $producto->slug= $request->input('name');
+        
         $producto->distributor()->associate($request->input('distributor'))->save();
+        foreach ($request->kgs as $kilo) {
+            $producto->kilograms()->attach($kilo);
+            
+        }
         return redirect()->route('products.index');
     }
 

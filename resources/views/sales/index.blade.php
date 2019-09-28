@@ -16,7 +16,8 @@
                     <th scope="col">Fecha</th>
                     <th scope="col" width="2%">
                         @if(Auth::user()->hasRole('user'))
-                            <a href="/ventas/nueva" class="btn btn-success btn-sm">Nueva</a>
+                            {{-- <a href="/ventas/nueva" class="btn btn-success btn-sm">Nueva</a> --}}
+                            <a href="/ventas/selectLine" class="btn btn-success btn-sm">Nueva</a>
                         @endif
                     </th>
                 </thead>

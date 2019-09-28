@@ -50,6 +50,7 @@ class SaleController extends Controller
      */
     public function create(Request $request)
     {   
+        dd($request);
        //$request->user()->authorizeRoles(['user']);
         $products= Product::all();
         $user = Auth::user();
@@ -142,5 +143,19 @@ class SaleController extends Controller
             ->select('users.*', 'contacts.phone', 'orders.price')
             ->get();
         */
+    }
+    public function selectLine(){
+        $products = Product::all();
+        return view('sales.selectLine', compact('products'));
+    }
+    public function kiloForLine($id){
+
+        
+        $products= Product::all();
+        $user = Auth::user();
+        $employee = Employee::where('user_id',$user->id)->first();
+
+        return view('sales.create', compact('products','employee'));
+        return 'hola';
     }
 }

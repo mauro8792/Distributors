@@ -64,7 +64,10 @@ Route::prefix('/ventas')->name('sales.')->group(function(){
     Route::get('/nueva', 'SaleController@create')->name('create');
     Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');
     Route::get('/forEmployee','SaleController@salesForEmployee')->name('salesForEmployee'); 
-    Route::post('/searchSale','SaleController@searchSale')->name('searchSale');      
+    Route::get('/selectLine','SaleController@selectLine')->name('selectLine'); 
+    Route::post('/searchSale','SaleController@searchSale')->name('searchSale'); 
+    Route::get('/kiloForLine/{id}','SaleController@kiloForLine')->name('kiloForLine'); 
+    
 });
 Route::resource('home', 'HomeController');
 Route::get('/home', 'HomeController@index')->name('home');

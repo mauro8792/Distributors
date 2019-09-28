@@ -21,5 +21,8 @@ class Product extends Model
     public function sales(){
         return $this->hasMany('Distributor\Sale');
     }
+    public function kilograms(){
+        return $this->belongsToMany('Distributor\Kilogram');
+    }
    
 }

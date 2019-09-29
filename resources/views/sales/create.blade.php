@@ -28,25 +28,19 @@
                 <div class="form-row">
                     <div class="col-md-8 mb-4">
                         <label for="products" class="control-label text-white">Select to Line</label>
-                           <select class="form-control text-success" name="product_id" id="product_id">
-                               @foreach($products as $prod)
-                                    <option value="{{$prod->id}}" class="form-control input-lg text-success">{{$prod->name}}</option>
-                                @endforeach
+                           <select class="form-control text-success" name="product_id" id="product_id" disabled>
+                               <option value="{{$products->id}}" class="form-control input-lg text-success" >{{$products->name}}</option>
+                               <input type="hidden"  name="product_id" value="{{$products->id}}">
                             </select>
                     </div>
                     <div class="col-md-2 mb-4">
                         <label for="kilograms" class="control-label text-white">Kilogramos</label>
                             <select class="form-control text-success" name="kilograms" id="kilograms">
-                            <option value="0.5">0.5</option> 
-                            <option value="1" selected>1</option>
-                            <option value="1.5">1.5</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="7.5">7.5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="21">21</option>
+                            @foreach ($products->kilograms as $kilos)
+                            <option value="{{$kilos->kilogram}}">{{$kilos->kilogram}}</option>
+                            @endforeach
+                             
+                            
                         </select>
                     </div>
                  

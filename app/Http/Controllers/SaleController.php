@@ -69,7 +69,6 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $sale = Sale::create($request->all());
-        
         return redirect()->route('sales.index');
     }
 
@@ -149,13 +148,11 @@ class SaleController extends Controller
         return view('sales.selectLine', compact('products'));
     }
     public function kiloForLine($id){
-
-        
-        $products= Product::all();
+        $products = Product::where('id',$id)->first();
         $user = Auth::user();
         $employee = Employee::where('user_id',$user->id)->first();
 
         return view('sales.create', compact('products','employee'));
-        return 'hola';
+       
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Commerce extends Model
 {
-    protected $filliable = ['name','address','telephone', 'slug'];
+    protected $filliable = ['name','address','telephone','numberOfClient', 'slug'];
 
     public function getRouteKeyName()
     {

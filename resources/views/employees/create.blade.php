@@ -3,6 +3,14 @@
 @section('title', 'Create Employee')
 
 @section('content')
+    @foreach (['danger', 'warning', 'success', 'info'] as $msg) 
+        @if(Session::has('alert-' . $msg)) 
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Cuidado! </strong>{{ Session::get('alert-' . $msg) }} ×
+            </div>
+        @endif 
+    @endforeach
  <div class="container">
     <div class="row justify-content-center">
        <div class="col-md-10 col-md-offset-8">
@@ -47,12 +55,13 @@
                         <input type="text" name="dni" id="dni" class="form-control input-lg text-success">
                     </div>
                     <div class="col-md-4 mb-3">
-                        <label for="commerce" class="control-label t_blanco">Comercio</label>
-                        <select class="form-control text-success" name="commerce" id="commerce">
+                        <label for="numberOfClient" class="control-label t_blanco">Numero de Comercio</label>
+                        <input type="number" name="numberOfClient" id="numberOfClient" class="form-control input-lg text-success">
+                       {{--  <select class="form-control text-success" name="commerce" id="commerce">
                            @foreach($commerce as $com)
                                 <option value="{{$com->id}}" id="commerce" class="form-control input-lg text-success">{{$com->name}}</option>
                             @endforeach
-                        </select>
+                        </select> --}}
                     </div>  
                 </div>
                 <div class="form-group text-center">                

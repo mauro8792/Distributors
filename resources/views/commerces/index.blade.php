@@ -11,6 +11,7 @@
             <table class="table table-responsive">
                 <thead class="thead-light">
                     <th scope="col">Nombre  </th>
+                    <th scope="col">N° Cliente  </th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Domicilio</th>
                     <th scope="col">Distribuidor</th>
@@ -21,6 +22,7 @@
                     @foreach($comercio as $com)
                         <tr>
                             <td>{{$com->name}}</td>
+                            <td>{{$com->numberOfClient}}</td>
                             <td>{{$com->telephone}}</td>
                             <td>{{$com->address}}</td>
                             <td>

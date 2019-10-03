@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -48,19 +51,31 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        //!Client::where('name','=',$request->input('name'))->exists())
+        if (Commerce::where('numberOfClient','=', $request->numberOfClient)->exists()) {
+            $commerce = Commerce::where('numberOfClient', $request->numberOfClient)->first();
+            $employee = new Employee();
+            $employee->name = $request->input('name1');
+            $employee->lastname = $request->input('lastname1');
+            $employee->telephone = $request->input('telephone');
+            $employee->dni = $request->input('dni');
+            $employee->email = $request->input('email1');
+            $employee->slug = $request->input('name1');
+            $employee->user_id= $request->input('user_id');
+            $employee->commerce()->associate($commerce->id)->save();
+            return redirect()->route('sales.index');
+        }else{
+            $request->session()->flash('alert-success', 'El comercio  con ese numero no existe!');
+            $user= User::all();
+            $usuario = $user->last();
+            return view('employees.create', compact('usuario'));
+        }
         
-        $employee = new Employee();
-        $employee->name = $request->input('name1');
-        $employee->lastname = $request->input('lastname1');
-        $employee->telephone = $request->input('telephone');
-        $employee->dni = $request->input('dni');
-        $employee->email = $request->input('email1');
-        $employee->slug = $request->input('name1');
-        $employee->user_id= $request->input('user_id');
-        $employee->commerce()->associate($request->input('commerce'))->save();
+        
+        //$employee->commerce()->associate($request->input('commerce'))->save();
 
         
-        return redirect()->route('sales.index');
+        
     }
 
     /**

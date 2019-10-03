@@ -19,6 +19,7 @@ class CreateCommercesTable extends Migration
             $table->string('telephone');
             $table->string('address');
             $table->string('slug');
+            $table->integer('numberOfClient')->unique();
             $table->timestamps();
         });
     }

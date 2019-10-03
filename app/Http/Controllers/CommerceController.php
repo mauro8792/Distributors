@@ -47,6 +47,7 @@ class CommerceController extends Controller
         $comercio->telephone = $request->input('telephone');
         $comercio->address = $request->input('address');
         $comercio->slug = $request->input('name');
+        $comercio->numberOfClient = $request->input('numberOfClient');
         $comercio->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('commerces.index');
     }
@@ -87,6 +88,7 @@ class CommerceController extends Controller
         $commerce->telephone = $request->input('telephone');
         $commerce->address = $request->input('address');
         $commerce->slug = $request->input('name');
+        $comercio->numberOfClient = $request->input('numberOfClient');
         $commerce->distributor()->associate($request->input('distributor'))->save();
         return redirect()->route('commerces.index');
     }

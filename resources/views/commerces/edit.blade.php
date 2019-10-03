@@ -35,6 +35,13 @@
                             </select>
                     </div>
                 </div>
+                <div class="form-row">
+                     <div class="col-md-6 mb-4">
+                        <label for="address" class="t_blanco">Numero de Cliente</label>
+                        <input type="number" name="numberOfClient" id="numberOfClient" class="form-control input-lg text-success" value="{{$commerce->numberOfClient}}">
+                    </div>
+                    
+                </div>
                 <div class="form-group text-center">                
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </div>

@@ -78,8 +78,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $kilos= [];
         $dist= Distributor::all();
-        return view ('products.edit', compact('product','dist'));
+        $kilograms = Kilogram::all();
+        //dd($product->kilograms[0]->id);
+        return view ('products.edit', compact('product','dist','kilograms'));
     }
 
     /**
@@ -91,14 +94,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $kilograms = Kilogram::all();
         $product->name= $request->input('name');
-       // $product->kilograms = $request->input('kilograms');
-       // $product->amount=$request->input('amount');
-       // $product->price=$request->input('price');
-       // $product->description=$request->input('description');
         $product->slug=$request->input('name');
-        //to que aca
-        $product->distributor()->attach($request->input('distributor'));
+        $product->distributor()->associate($request->input('distributor'))->save();
+        
+        foreach ($kilograms as $kilito) {
+            $product->kilograms()->detach($kilito);
+            
+        } 
+
+         foreach ($request->kgs as $kilo) {
+            $product->kilograms()->attach($kilo);
+            
+        }  
+
         return redirect()->route('products.index');
     }
 

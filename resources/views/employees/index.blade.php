@@ -32,7 +32,7 @@
                                 @endforeach                
                             </td>
                             <!-- Modal -->
-                            <div class="modal fade" id="modalDelete{{$empleado->id}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
+                            <div class="modal fade" id="modalDelete{{$empleado->slug}}" tabindex="-1" role="dialog" aria-labelledby="modalDeleteLabel" aria-hidden="true">
                               <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                   <div class="modal-header bg-danger">
@@ -57,7 +57,7 @@
                             </div>     
                             <!-- End Modal -->                             
                             <td><a href="/employees/{{$empleado->slug}}/edit" class="btn btn-success btn-sm">&nbsp;Editar&nbsp;</a> </td>
-                            <td><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$empleado->id}}">Eliminar</button>
+                            <td><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$empleado->slug}}">Eliminar</button>
                         </tr>
                     @endforeach
                 </tbody>

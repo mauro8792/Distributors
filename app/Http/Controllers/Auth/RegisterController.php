@@ -5,10 +5,13 @@ namespace Distributor\Http\Controllers\Auth;
 use Distributor\User;
 use Distributor\Role;
 use Distributor\Commerce;
+use Distributor\Employee;
 use Distributor\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+//use Distributor\Http\Controllers\Redirect;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -30,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/employees/create';
+    protected $redirectTo = '/sales';
 
     /**
      * Create a new controller instance.
@@ -54,6 +57,7 @@ class RegisterController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+            'numberOfClient' =>'required|exists:commerces,numberOfClient',
         ]);
     }
 
@@ -66,18 +70,42 @@ class RegisterController extends Controller
     protected function create(array $data)
     {   
         
-        $user =User::create([
+        try{
+            if (Commerce::where('numberOfClient','=', $data['numberOfClient'])->exists()) {
+                $commerce = Commerce::where('numberOfClient', $data['numberOfClient'])->first();
+                $user =User::create([
+                'name' => $data['name'],
+                'lastname' => $data['lastname'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                ]);
+                $employee = new Employee();
+                $employee->name = $data['name'];
+                $employee->lastname = $data['lastname'];
+                $employee->email = $data['email'];
+                $employee->dni = $data['dni'];
+                $employee->email = $data['email'];
+                $employee->slug = $data['name'].$data['lastname'] ;
+                $employee->user_id = $user->id;
+                $employee->commerce()->associate($commerce->id)->save();
+                $user->roles()->attach(Role::where('name','user')->first());
+                return $user;
+
+            }
+        }catch (Exception $e) {
+                //return redirect()->route('login');
+                return back()->withInput()->with('error', 'There was an error...');
+    }
+        /* $user =User::create([
             'name' => $data['name'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             
         ]);
-        
         //dd(Role::where('name','user')->select('id')->first());
         $user->roles()->attach(Role::where('name','user')->first());
-        return $user;
-        
+        return $user; */  
     }
     
     public function showRegistrationForm() {

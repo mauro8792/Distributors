@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container">
+     @foreach (['danger', 'warning', 'success', 'info'] as $msg) 
+        @if(Session::has('alert-' . $msg)) 
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Cuidado! </strong>{{ Session::get('alert-' . $msg) }} ×
+            </div>
+        @endif 
+    @endforeach
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -35,6 +43,32 @@
                                         <strong>{{ $errors->first('lastname') }}</strong>
                                     </span>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="dni" class="col-md-4 col-form-label text-md-right text-success">{{ __('Dni') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="dni" type="text" class="form-control{{ $errors->has('dni') ? ' is-invalid' : '' }} text-success" name="dni" value="{{ old('dni') }}" required autofocus>
+
+                                @if ($errors->has('dni'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('dni') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="numberOfClient" class="col-md-4 col-form-label text-md-right text-success">{{ __('Numero de Cliente') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="numberOfClient" type="number" class="form-control{{ $errors->has('numberOfClient') ? ' is-invalid' : '' }} text-success" name="numberOfClient" value="{{ old('numberOfClient') }}" required autofocus>
+                                 @if ($errors->has('numberOfClient'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('numberOfClient') }}</strong>
+                                    </span>
+                                @endif
+                                
                             </div>
                         </div>
 

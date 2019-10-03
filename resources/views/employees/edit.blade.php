@@ -37,7 +37,7 @@
                         <label for="commerce" class="control-label t_blanco">Seleccione Comercio</label>
                            <select class="form-control text-success" name="commerce" id="commerce">
                                @foreach($commerce as $com)
-                                    <option value="{{$com->id}}" class="form-control input-lg text-success">{{$com->name}}</option>
+                           <option value="{{$com->id}}" class="form-control input-lg text-success">{{$com->name}} - {{$com->numberOfClient}}</option>
                                 @endforeach
                             </select>
                     </div>

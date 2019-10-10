@@ -65,6 +65,9 @@ Route::prefix('/ventas')->name('sales.')->group(function(){
     Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');
     Route::get('/forEmployee','SaleController@salesForEmployee')->name('salesForEmployee'); 
     Route::get('/selectLine','SaleController@selectLine')->name('selectLine'); 
+    Route::get('/employeeBestSale','SaleController@employeeBestSale')->name('employeeBestSale');
+    Route::get('/employeeBestSaleForLine','SaleController@employeeBestSaleForLine')->name('employeeBestSaleForLine');
+    Route::get('/saleForEmployee/{name}','SaleController@saleForEmployee')->name('saleForEmployee'); 
     Route::post('/searchSale','SaleController@searchSale')->name('searchSale'); 
     Route::get('/kiloForLine/{id}','SaleController@kiloForLine')->name('kiloForLine'); 
     

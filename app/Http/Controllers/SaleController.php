@@ -29,16 +29,18 @@ class SaleController extends Controller
             ->with(['product' => function($queryProduct){
                 $queryProduct->select('id','name');
             }])->orderBy('created_at','asc')->get();        
+            
         }else {
-            $ventas = Sale::with(['employee' => function($query){
+             $ventas = Sale::with(['employee' => function($query){
                 $query->select('id', 'name','lastname');
             }])
             ->with(['product' => function($queryProduct){
                 $queryProduct->select('id','name');
-            }])->orderBy('created_at','asc')->get();            
+            }])->orderBy('created_at','asc')->get(); 
         }
 
-        return view('sales.index', compact('dist','products','employees','ventas'));
+        return view('sales.index', compact('ventas'));
+        //return view('sales.index', compact('dist','products','employees','ventas'));
        
 
     }
@@ -50,7 +52,7 @@ class SaleController extends Controller
      */
     public function create(Request $request)
     {   
-        dd($request);
+        //dd($request);
        //$request->user()->authorizeRoles(['user']);
         $products= Product::all();
         $user = Auth::user();
@@ -147,6 +149,7 @@ class SaleController extends Controller
         $products = Product::all();
         return view('sales.selectLine', compact('products'));
     }
+
     public function kiloForLine($id){
         $products = Product::where('id',$id)->first();
         $user = Auth::user();
@@ -155,4 +158,48 @@ class SaleController extends Controller
         return view('sales.create', compact('products','employee'));
        
     }
+
+    public function employeeBestSale(){
+        /* $ventas = DB::table('sales')
+        ->join('employees', 'sales.employee_id','employees.id')
+        ->join('products','sales.product_id','products.id')
+        ->select(DB::raw('sum(kilograms * amount) as ventas'))
+        ->groupBy('employees.id')
+        ->orderby('ventas','desc')
+        ->get();
+        dd($ventas); */
+        
+        $ventas = Sale::select(
+                                    'products.slug',
+                                    'employees.name',
+                                    DB::raw('sum(kilograms * amount) as ventas'))
+        ->join('employees', 'sales.employee_id','employees.id')
+        ->join('products','sales.product_id','products.id')
+        ->groupBy('employees.id')
+        ->orderby('ventas','desc')
+        ->get();
+        return view('sales.bestSales', compact('ventas'));
+        //dd($ventas);
+       
+    }
+    public function employeeBestSaleForLine(){
+        
+        $ventas = Sale::select(
+                                    'products.slug',
+                                    'employees.name',
+                                    DB::raw('sum(kilograms * amount) as ventas'))
+        ->join('employees', 'sales.employee_id','employees.id')
+        ->join('products','sales.product_id','products.id')
+        ->groupBy('products.name','employees.id')
+        ->orderby('ventas','desc')
+        ->get();
+        return view('sales.bestSales', compact('ventas'));
+        //dd($ventas);
+       
+    }
+    public function saleForEmployee( $name){
+        dd($name);
+    }
+
+    
 }

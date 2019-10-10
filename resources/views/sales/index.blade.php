@@ -59,6 +59,13 @@
                     @endforeach
                 </tbody>
             </table>
+            <button>
+                <a href="/ventas/employeeBestSale">Quien vendio mas</a>
+            </button>
+            <button>
+                <a href="/ventas/employeeBestSaleForLine">Quien vendio mas por linea</a>
+            </button>
+          
         </div>   
     </div>
 </div>     

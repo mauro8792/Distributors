@@ -40,7 +40,6 @@ class SaleController extends Controller
         }
 
         return view('sales.index', compact('ventas'));
-        //return view('sales.index', compact('dist','products','employees','ventas'));
        
 
     }
@@ -127,23 +126,9 @@ class SaleController extends Controller
             return view('sales.salesForEmployee', compact('employees'));
     }
     public function searchSale(Request $request){
-        
-        //return "hola";
-        
-        //$ventas=Sale::where('employee_id',$request->input('employee_id'))->get();
-        //$ventas = DB::table('sales')->select('employee_id')->get();
         $ventas=Sale::max('employee_id');
         return $ventas;
 
-        
-        
-        /*
-        $users = DB::table('users')
-            ->join('contacts', 'users.id', '=', 'contacts.user_id')
-            ->join('orders', 'users.id', '=', 'orders.user_id')
-            ->select('users.*', 'contacts.phone', 'orders.price')
-            ->get();
-        */
     }
     public function selectLine(){
         $products = Product::all();
@@ -159,25 +144,19 @@ class SaleController extends Controller
        
     }
 
-    public function employeeBestSale(){
-        /* $ventas = DB::table('sales')
-        ->join('employees', 'sales.employee_id','employees.id')
-        ->join('products','sales.product_id','products.id')
-        ->select(DB::raw('sum(kilograms * amount) as ventas'))
-        ->groupBy('employees.id')
-        ->orderby('ventas','desc')
-        ->get();
-        dd($ventas); */
-        
+    public function employeeBestSale(){        
         $ventas = Sale::select(
-                                    'products.slug',
-                                    'employees.name',
-                                    DB::raw('sum(kilograms * amount) as ventas'))
+                                DB::raw('products.slug'),
+                                DB::raw('employees.name'),
+                                DB::raw('employees.lastname'),
+                                DB::raw('employees.id'),
+                                DB::raw('sum(kilograms * amount) as ventas'))
         ->join('employees', 'sales.employee_id','employees.id')
         ->join('products','sales.product_id','products.id')
         ->groupBy('employees.id')
         ->orderby('ventas','desc')
         ->get();
+        //dd($ventas);
         return view('sales.bestSales', compact('ventas'));
         //dd($ventas);
        
@@ -185,20 +164,33 @@ class SaleController extends Controller
     public function employeeBestSaleForLine(){
         
         $ventas = Sale::select(
-                                    'products.slug',
-                                    'employees.name',
-                                    DB::raw('sum(kilograms * amount) as ventas'))
+                                DB::raw('products.slug'),
+                                DB::raw('employees.name'),
+                                DB::raw('employees.lastname'),
+                                DB::raw('employees.id'),
+                                DB::raw('sum(kilograms * amount) as ventas'))
         ->join('employees', 'sales.employee_id','employees.id')
         ->join('products','sales.product_id','products.id')
         ->groupBy('products.name','employees.id')
         ->orderby('ventas','desc')
         ->get();
-        return view('sales.bestSales', compact('ventas'));
         //dd($ventas);
+        return view('sales.bestSales', compact('ventas'));
+        
        
     }
-    public function saleForEmployee( $name){
-        dd($name);
+    public function saleForEmployee( $name, $id){
+        
+            $em = Employee::where('id',$id)->first();           
+            $ventas = Sale::where('employee_id',$em->id)->with(['employee' => function($query){
+                $query->select('id', 'name','lastname');
+            }])
+            ->with(['product' => function($queryProduct){
+                $queryProduct->select('id','name');
+            }])->orderBy('created_at','asc')->get();   
+            return view('sales.index', compact('ventas'));
+        //dd($name);
+        
     }
 
     

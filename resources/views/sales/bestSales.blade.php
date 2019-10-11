@@ -21,8 +21,9 @@
                 </thead>
                 <tbody class="text-white">
                     @foreach($ventas as $venta)
+                        
                         <tr>
-                        <td><a href="/ventas/saleForEmployee/{{$venta->name}}" class="btn btn-success btn-sm">{{$venta->name}}</a></td>
+                        <td><a href="/ventas/saleForEmployee/{{$venta->name}}/{{$venta->id}}" class="btn btn-success btn-sm">{{$venta->lastname}}, {{$venta->name}}</a></td>
                             <td>{{$venta->slug}}</td>
                             <td>{{$venta->ventas}}</td>
                             <td class="text-center"><button type="submit" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDelete{{$venta->id}}" title="Eliminar"><i class="fa fa-trash-o"></i></button>                               

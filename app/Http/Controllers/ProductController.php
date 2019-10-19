@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-         //$request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         $products= Product::with(['distributor' => function($query){
             $query->select('id', 'name');
         }])->orderBy('name','asc')->get();
@@ -31,7 +34,7 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
-       // $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
         $kilograms = Kilogram::all();
         //dd($kilograms);
@@ -45,8 +48,9 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //dd($request->kgs);
+    {   
+        if (!Product::where('name','=',$request->input('name'))->exists()) {
+        $request->user()->authorizeRoles(['admin']);
         $producto = new Product();
         $producto->name= $request->input('name');
         $producto->slug= $request->input('name');
@@ -57,6 +61,11 @@ class ProductController extends Controller
             
         }
         return redirect()->route('products.index');
+        }else{
+            $request->session()->flash('alert-success', 'El Producto con ese nombre ya existe!');
+            return redirect()->route('products.create');
+            
+        }
     }
 
     /**
@@ -78,10 +87,8 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $kilos= [];
         $dist= Distributor::all();
         $kilograms = Kilogram::all();
-        //dd($product->kilograms[0]->id);
         return view ('products.edit', compact('product','dist','kilograms'));
     }
 
@@ -94,6 +101,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $request->user()->authorizeRoles(['admin']);
         $kilograms = Kilogram::all();
         $product->name= $request->input('name');
         $product->slug=$request->input('name');

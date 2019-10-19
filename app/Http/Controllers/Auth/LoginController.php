@@ -25,7 +25,17 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/sales';
+
+    protected $redirectTo = '/ventas/selectLine';
+     
+    public function authenticated($request , $user){
+        if($user->hasRole('admin')){
+            return redirect()->route('sales.index') ;
+        }else{
+            return redirect()->route('sales.selectLine') ;
+        }
+    }
+    
 
     /**
      * Create a new controller instance.

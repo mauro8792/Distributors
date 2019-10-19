@@ -4,6 +4,13 @@
 
 @section('content')
  <div class="container">
+     @foreach (['danger', 'warning', 'success', 'info'] as $msg) @if(Session::has('alert-' . $msg)) 
+    
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Cuidado! </strong>{{ Session::get('alert-' . $msg) }} ×
+    </div>
+    @endif @endforeach
     <div class="row justify-content-center">
        <div class="col-md-8 col-md-offset-8">
             @if($errors->any())

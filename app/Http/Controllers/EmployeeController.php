@@ -19,8 +19,8 @@ class EmployeeController extends Controller
      */
     public function index(Request $request, $orden = 'desc')
     {
-        $orden = ($orden == 'desc')?'asc':'desc';
         $request->user()->authorizeRoles(['admin']);
+        $orden = ($orden == 'desc')?'asc':'desc';
         $commerces=Commerce::all();
         $employees= Employee::orderBy('lastname',$orden,'name',$orden)->get();
         return view('employees.index', compact('employees','commerces','orden'));
@@ -33,8 +33,7 @@ class EmployeeController extends Controller
      */
     public function create(Request $request)
     {   
-        //$request->user()->authorizeRoles(['user','admin']);
-       // $role_user = Role::where('name','user')->first();
+        $request->user()->authorizeRoles(['admin']);
         $user= User::all();
         $usuario = $user->last();
        // $usuario->roles()->attach($role_user);
@@ -51,7 +50,7 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //!Client::where('name','=',$request->input('name'))->exists())
+        $request->user()->authorizeRoles(['admin']);
         if (Commerce::where('numberOfClient','=', $request->numberOfClient)->exists()) {
             $commerce = Commerce::where('numberOfClient', $request->numberOfClient)->first();
             $employee = new Employee();
@@ -69,12 +68,7 @@ class EmployeeController extends Controller
             $user= User::all();
             $usuario = $user->last();
             return view('employees.create', compact('usuario'));
-        }
-        
-        
-        //$employee->commerce()->associate($request->input('commerce'))->save();
-
-        
+        }      
         
     }
 
@@ -110,6 +104,7 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
+        $request->user()->authorizeRoles(['admin']);
         $employee->name = $request->input('name');
         $employee->lastname = $request->input('lastname');
         $employee->telephone = $request->input('telephone');

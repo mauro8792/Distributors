@@ -33,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/sales';
+    protected $redirectTo = '/sales/selectLine';
 
     /**
      * Create a new controller instance.
@@ -56,6 +56,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'dni' => 'required|string|max:255|unique:employees',
             'password' => 'required|string|min:6|confirmed',
             'numberOfClient' =>'required|exists:commerces,numberOfClient',
         ]);

@@ -13,6 +13,9 @@ use Illuminate\Support\Collection;
 
 class SaleController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -70,7 +73,7 @@ class SaleController extends Controller
     public function store(Request $request)
     {
         $sale = Sale::create($request->all());
-        return redirect()->route('sales.index');
+        return redirect()->route('sales.selectLine');
     }
 
     /**
@@ -144,7 +147,10 @@ class SaleController extends Controller
        
     }
 
-    public function employeeBestSale(){        
+    public function employeeBestSale(Request $request){
+        $fecha = $request->mes;
+        list($anio, $mes) = explode("-",$fecha);
+        //dd($mes);        
         $ventas = Sale::select(
                                 DB::raw('products.slug'),
                                 DB::raw('employees.name'),
@@ -153,6 +159,8 @@ class SaleController extends Controller
                                 DB::raw('sum(kilograms * amount) as ventas'))
         ->join('employees', 'sales.employee_id','employees.id')
         ->join('products','sales.product_id','products.id')
+        ->whereYear('sales.created_at', '=', $anio)
+        ->whereMonth('sales.created_at', '=', $mes)
         ->groupBy('employees.id')
         ->orderby('ventas','desc')
         ->get();

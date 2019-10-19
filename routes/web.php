@@ -51,7 +51,7 @@ Route::prefix('/empleados')->name('employees.')->group(function(){
 
 // Productos
 Route::resource('products', 'ProductController');
-Route::prefix('/productos')->name('products.')->group(function(){
+Route::prefix('/productos')->name('products.')->middleware(['auth'])->group(function(){
     Route::get('/', 'ProductController@index')->name('index');
     Route::get('/nuevo', 'ProductController@create')->name('create');
     Route::delete('/delete/{id}','ProductController@destroy')->name('destroy');      
@@ -59,13 +59,13 @@ Route::prefix('/productos')->name('products.')->group(function(){
 
 // Ventas
 Route::resource('sales', 'SaleController');
-Route::prefix('/ventas')->name('sales.')->group(function(){
+Route::prefix('/ventas')->name('sales.')->middleware(['auth'])->group(function(){
     Route::get('/', 'SaleController@index')->name('index');
     Route::get('/nueva', 'SaleController@create')->name('create');
     Route::delete('/delete/{id}','SaleController@destroy')->name('destroy');
     Route::get('/forEmployee','SaleController@salesForEmployee')->name('salesForEmployee'); 
     Route::get('/selectLine','SaleController@selectLine')->name('selectLine'); 
-    Route::get('/employeeBestSale','SaleController@employeeBestSale')->name('employeeBestSale');
+    Route::post('/employeeBestSale','SaleController@employeeBestSale')->name('employeeBestSale');
     Route::get('/employeeBestSaleForLine','SaleController@employeeBestSaleForLine')->name('employeeBestSaleForLine');
     Route::get('/saleForEmployee/{name}/{id}','SaleController@saleForEmployee')->name('saleForEmployee'); 
     Route::post('/searchSale','SaleController@searchSale')->name('searchSale'); 

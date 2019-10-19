@@ -8,6 +8,9 @@ use Distributor\Http\Requests\StoreDistributorRequest;
 
 class DistributorController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,7 @@ class DistributorController extends Controller
      */
     public function index(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         $dist = Distributor::orderBy('name','asc')->get();
         return view('distributors.index', compact('dist'));
     }
@@ -27,7 +30,7 @@ class DistributorController extends Controller
      */
     public function create(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         return view ('distributors.create');
     }
 
@@ -39,6 +42,7 @@ class DistributorController extends Controller
      */
     public function store(StoreDistributorRequest $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $dist = new Distributor();
         $dist->name = $request->input('name');
         $dist->telephone = $request->input('telephone');
@@ -80,9 +84,9 @@ class DistributorController extends Controller
      */
     public function update(Request $request, Distributor $distributor)
     {
+        $request->user()->authorizeRoles(['admin']);
         $distributor->fill($request->all());
         $distributor->save();
-        //return redirect()->route('distributors.index',[$distributor])->with('status', 'Team update');
         return redirect()->route('distributors.index');   
     }
 

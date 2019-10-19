@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Distributor\Http\Requests\StoreCommerceRequest;
 class CommerceController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,12 +17,10 @@ class CommerceController extends Controller
      */
     public function index(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         $comercio=Commerce::orderBy('name','asc')->get();
         $dist=Distributor::all();
-        //bb($dist);
         return view('commerces.index', compact('comercio','dist'));
-         //return view('commerces.index', compact('comercio'));
     }
 
     /**
@@ -29,7 +30,7 @@ class CommerceController extends Controller
      */
     public function create(Request $request)
     {
-        //$request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin']);
         $dist = Distributor::all();
         return view('commerces.create', compact ('dist'));
     }
@@ -42,6 +43,7 @@ class CommerceController extends Controller
      */
     public function store(Request $request)
     {
+        $request->user()->authorizeRoles(['admin']);
         $comercio = new Commerce();
         $comercio->name = $request->input('name');
         $comercio->telephone = $request->input('telephone');
@@ -84,6 +86,7 @@ class CommerceController extends Controller
      */
     public function update(Request $request, Commerce $commerce)
     {
+        $request->user()->authorizeRoles(['admin']);
         $commerce->name = $request->input('name');
         $commerce->telephone = $request->input('telephone');
         $commerce->address = $request->input('address');
